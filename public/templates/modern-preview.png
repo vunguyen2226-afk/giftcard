@@ -1,0 +1,51 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern template preview -->
+  <defs>
+    <linearGradient id="modern-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6d28d9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5b21b6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#modern-bg)"/>
+
+  <!-- Geometric decorative circles -->
+  <circle cx="350" cy="50" r="40" fill="none" stroke="white" stroke-width="3" opacity="0.2"/>
+  <circle cx="360" cy="60" r="20" fill="none" stroke="white" stroke-width="2" opacity="0.15"/>
+  <circle cx="50" cy="250" r="50" fill="none" stroke="white" stroke-width="3" opacity="0.2"/>
+  <circle cx="70" cy="270" r="15" fill="white" opacity="0.1"/>
+
+  <!-- Geometric lines -->
+  <line x1="0" y1="80" x2="150" y2="0" stroke="white" stroke-width="2" opacity="0.1"/>
+  <line x1="400" y1="0" x2="320" y2="300" stroke="white" stroke-width="2" opacity="0.1"/>
+
+  <!-- Glassmorphism card -->
+  <rect x="80" y="60" width="240" height="180" fill="white" fill-opacity="0.1" rx="16" stroke="white" stroke-opacity="0.2" stroke-width="1"/>
+
+  <!-- Large year number in background -->
+  <text x="340" y="180" font-family="sans-serif" font-size="120" font-weight="900" fill="white" opacity="0.05">2026</text>
+
+  <!-- Content -->
+  <text x="200" y="100" font-family="sans-serif" font-size="10" font-weight="600" fill="white" opacity="0.7" text-anchor="middle" letter-spacing="2">TO</text>
+  <text x="200" y="125" font-family="sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Recipient</text>
+
+  <!-- Decorative line -->
+  <rect x="170" y="145" width="60" height="2" fill="white" opacity="0.3" rx="1"/>
+
+  <!-- Message -->
+  <text x="200" y="170" font-family="sans-serif" font-size="14" fill="white" text-anchor="middle">Modern Design</text>
+  <text x="200" y="188" font-family="sans-serif" font-size="11" fill="white" opacity="0.8" text-anchor="middle">Gradient • Glassmorphism</text>
+
+  <!-- Decorative line -->
+  <rect x="170" y="205" width="60" height="2" fill="white" opacity="0.3" rx="1"/>
+
+  <!-- From -->
+  <text x="280" y="228" font-family="sans-serif" font-size="9" font-weight="600" fill="white" opacity="0.7" text-anchor="end" letter-spacing="2">FROM</text>
+  <text x="280" y="245" font-family="sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="end">Sender</text>
+
+  <!-- Corner accent -->
+  <line x1="310" y1="220" x2="310" y2="235" stroke="white" stroke-width="3" opacity="0.2"/>
+  <line x1="310" y1="235" x2="295" y2="235" stroke="white" stroke-width="3" opacity="0.2"/>
+</svg>

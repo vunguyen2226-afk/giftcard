@@ -1,0 +1,72 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Elegant template preview -->
+  <defs>
+    <pattern id="texture" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#92400e" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <!-- Background with subtle texture -->
+  <rect width="400" height="300" fill="#fef3c7"/>
+  <rect width="400" height="300" fill="url(#texture)"/>
+
+  <!-- Ornate corner borders -->
+  <g stroke="#92400e" fill="#92400e" opacity="0.4">
+    <!-- Top-left corner -->
+    <path d="M 30 30 L 80 30 L 80 35 Q 50 35 35 35 L 35 80 L 30 80 Z" stroke-width="0"/>
+    <path d="M 32 32 L 78 32 Q 38 32 38 38 L 38 78 L 32 78 Z" opacity="0.5" stroke-width="0"/>
+
+    <!-- Top-right corner -->
+    <path d="M 370 30 L 320 30 L 320 35 Q 350 35 365 35 L 365 80 L 370 80 Z" stroke-width="0"/>
+    <path d="M 368 32 L 322 32 Q 362 32 362 38 L 362 78 L 368 78 Z" opacity="0.5" stroke-width="0"/>
+
+    <!-- Bottom-left corner -->
+    <path d="M 30 270 L 80 270 L 80 265 Q 50 265 35 265 L 35 220 L 30 220 Z" stroke-width="0"/>
+    <path d="M 32 268 L 78 268 Q 38 268 38 262 L 38 222 L 32 222 Z" opacity="0.5" stroke-width="0"/>
+
+    <!-- Bottom-right corner -->
+    <path d="M 370 270 L 320 270 L 320 265 Q 350 265 365 265 L 365 220 L 370 220 Z" stroke-width="0"/>
+    <path d="M 368 268 L 322 268 Q 362 268 362 262 L 362 222 L 368 222 Z" opacity="0.5" stroke-width="0"/>
+  </g>
+
+  <!-- Ornate border frames -->
+  <rect x="45" y="45" width="310" height="210" fill="none" stroke="#92400e" stroke-width="2" opacity="0.3" rx="8"/>
+  <rect x="50" y="50" width="300" height="200" fill="none" stroke="#92400e" stroke-width="1" opacity="0.2" rx="6"/>
+
+  <!-- Ornate side decorations -->
+  <g stroke="#92400e" fill="#92400e" opacity="0.2">
+    <circle cx="45" cy="100" r="2"/>
+    <circle cx="45" cy="150" r="3"/>
+    <circle cx="45" cy="200" r="2"/>
+    <path d="M 45 100 Q 40 125 45 150" stroke-width="1.5" fill="none"/>
+    <path d="M 45 150 Q 40 175 45 200" stroke-width="1.5" fill="none"/>
+
+    <circle cx="355" cy="100" r="2"/>
+    <circle cx="355" cy="150" r="3"/>
+    <circle cx="355" cy="200" r="2"/>
+    <path d="M 355 100 Q 360 125 355 150" stroke-width="1.5" fill="none"/>
+    <path d="M 355 150 Q 360 175 355 200" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Content in formal letter style -->
+  <text x="80" y="90" font-family="serif" font-size="16" font-style="italic" fill="#92400e" opacity="0.9">Dear Recipient,</text>
+
+  <!-- Decorative divider -->
+  <line x1="80" y1="105" x2="220" y2="105" stroke="#92400e" stroke-width="1" opacity="0.3"/>
+  <circle cx="90" cy="105" r="2" fill="#92400e" opacity="0.3"/>
+  <line x1="100" y1="105" x2="160" y2="105" stroke="#92400e" stroke-width="1" opacity="0.3"/>
+
+  <!-- Message body -->
+  <text x="200" y="140" font-family="serif" font-size="14" fill="#92400e" opacity="0.8" text-anchor="middle">Elegant Design</text>
+  <text x="200" y="160" font-family="serif" font-size="11" fill="#92400e" opacity="0.7" text-anchor="middle">Ornate Borders • Serif Typography</text>
+  <text x="200" y="176" font-family="serif" font-size="11" fill="#92400e" opacity="0.7" text-anchor="middle">Formal Letter Layout</text>
+
+  <!-- Decorative divider -->
+  <line x1="180" y1="195" x2="320" y2="195" stroke="#92400e" stroke-width="1" opacity="0.3"/>
+  <circle cx="310" cy="195" r="2" fill="#92400e" opacity="0.3"/>
+  <line x1="240" y1="195" x2="300" y2="195" stroke="#92400e" stroke-width="1" opacity="0.3"/>
+
+  <!-- Formal closing -->
+  <text x="320" y="220" font-family="serif" font-size="11" fill="#92400e" opacity="0.7" text-anchor="end">With warmest regards,</text>
+  <text x="320" y="240" font-family="serif" font-size="18" font-style="italic" fill="#92400e" opacity="0.9" text-anchor="end">Sender</text>
+</svg>

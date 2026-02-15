@@ -1,65 +1,238 @@
-import Image from "next/image";
+import { auth } from "../../auth"
+import Link from "next/link"
 
-export default function Home() {
+export default async function LandingPage() {
+  const session = await auth()
+  const ctaHref = session?.user ? "/create" : "/login"
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-amber-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="text-center space-y-8">
+            {/* Logo */}
+            <div className="flex justify-center">
+              <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-rose-500 to-amber-500 flex items-center justify-center shadow-xl">
+                <svg
+                  className="h-10 w-10 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/* Headline */}
+            <div className="space-y-4">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Create Beautiful
+                <span className="block bg-gradient-to-r from-rose-600 to-amber-500 bg-clip-text text-transparent">
+                  New Year Greeting Cards
+                </span>
+              </h1>
+              <p className="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-400">
+                Design personalized greeting cards with stunning animations, share them instantly,
+                and track who viewed your heartfelt wishes
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href={ctaHref}
+                className="rounded-lg bg-rose-600 px-8 py-4 text-lg font-semibold text-white
+                         hover:bg-rose-700 transition-all shadow-lg hover:shadow-xl
+                         inline-flex items-center gap-2"
+              >
+                {session?.user ? "Create Your Card" : "Get Started"}
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+              {!session?.user && (
+                <Link
+                  href="/login"
+                  className="rounded-lg border-2 border-gray-300 dark:border-gray-700 px-8 py-4 text-lg font-semibold
+                           text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+                >
+                  Sign In
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Everything You Need to Spread Joy
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Simple, powerful tools to create and share memorable greeting cards
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Feature 1 */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md border border-gray-200 dark:border-gray-800">
+            <div className="h-12 w-12 rounded-lg bg-rose-100 dark:bg-rose-900/20 flex items-center justify-center mb-4">
+              <svg className="h-6 w-6 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Beautiful Templates
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Choose from stunning pre-designed templates perfect for Vietnamese New Year and any occasion
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md border border-gray-200 dark:border-gray-800">
+            <div className="h-12 w-12 rounded-lg bg-amber-100 dark:bg-amber-900/20 flex items-center justify-center mb-4">
+              <svg className="h-6 w-6 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Animated Effects
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Add falling cherry blossoms, fireworks, and other festive animations to your cards
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md border border-gray-200 dark:border-gray-800">
+            <div className="h-12 w-12 rounded-lg bg-rose-100 dark:bg-rose-900/20 flex items-center justify-center mb-4">
+              <svg className="h-6 w-6 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Easy Sharing
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Generate shareable links and send your cards to friends and family instantly
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-md border border-gray-200 dark:border-gray-800">
+            <div className="h-12 w-12 rounded-lg bg-amber-100 dark:bg-amber-900/20 flex items-center justify-center mb-4">
+              <svg className="h-6 w-6 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              View Tracking
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              See when your cards are opened and track engagement with your greetings
+            </p>
+          </div>
         </div>
-      </main>
+      </div>
+
+      {/* Template Showcase Section */}
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Stunning Templates for Every Occasion
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Start with professionally designed templates and make them your own
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Template Preview 1 */}
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-500 to-rose-600 aspect-[4/5] shadow-lg hover:shadow-2xl transition-all">
+            <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+              <div className="space-y-4">
+                <p className="text-6xl">🧧</p>
+                <h3 className="text-2xl font-bold text-white">Lunar New Year</h3>
+                <p className="text-white/90">Traditional Vietnamese Tet greeting</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Template Preview 2 */}
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 aspect-[4/5] shadow-lg hover:shadow-2xl transition-all">
+            <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+              <div className="space-y-4">
+                <p className="text-6xl">🎆</p>
+                <h3 className="text-2xl font-bold text-white">Celebration</h3>
+                <p className="text-white/90">Festive fireworks and joy</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Template Preview 3 */}
+          <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 aspect-[4/5] shadow-lg hover:shadow-2xl transition-all">
+            <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
+              <div className="space-y-4">
+                <p className="text-6xl">🌸</p>
+                <h3 className="text-2xl font-bold text-white">Cherry Blossom</h3>
+                <p className="text-white/90">Elegant spring greetings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href={ctaHref}
+            className="inline-flex items-center gap-2 text-rose-600 dark:text-rose-400 font-semibold hover:gap-3 transition-all"
+          >
+            View all templates
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-200 dark:border-gray-800 mt-16">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-rose-500 to-amber-500 flex items-center justify-center">
+                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                </svg>
+              </div>
+              <span className="font-semibold text-gray-900 dark:text-white">Gift Card</span>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              © 2026 Gift Card. Create beautiful memories.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }

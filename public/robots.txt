@@ -1,0 +1,11 @@
+# Robots.txt for Gift Card App
+
+User-agent: *
+Allow: /
+Allow: /login
+Disallow: /dashboard
+Disallow: /create
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://giftcard.yourdomain.com/sitemap.xml

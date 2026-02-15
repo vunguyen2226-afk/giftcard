@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(node .claude/scripts/set-active-plan.cjs:*)",
+      "WebSearch",
+      "WebFetch(domain:authjs.dev)",
+      "WebFetch(domain:motion.dev)",
+      "Bash(npm install:*)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx next build)"
+    ]
+  }
+}
