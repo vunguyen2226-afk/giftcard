@@ -34,7 +34,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   // Calculate total views
-  const totalViews = card.recipients.reduce((sum, r) => sum + r.viewCount, 0)
+  const totalViews = card.recipients.reduce((sum: number, r: typeof card.recipients[number]) => sum + r.viewCount, 0)
 
   return NextResponse.json({
     card: {
@@ -45,10 +45,9 @@ export async function GET(request: Request, context: RouteContext) {
       createdAt: card.createdAt.toISOString(),
     },
     totalViews,
-    recipients: card.recipients.map((r) => ({
+    recipients: card.recipients.map((r: typeof card.recipients[number]) => ({
       id: r.id,
       name: r.name,
-      email: r.email,
       personalSlug: r.personalSlug,
       viewCount: r.viewCount,
       firstViewedAt: r.firstViewedAt?.toISOString() || null,
