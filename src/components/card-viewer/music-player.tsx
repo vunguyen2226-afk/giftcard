@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { Volume2, VolumeX } from "lucide-react"
 import { motion } from "motion/react"
 import { playTestTone, checkMusicFileExists } from "@/lib/audio-fallback"
+import { useTranslation } from "@/lib/i18n"
 
 interface MusicPlayerProps {
   musicUrl?: string
@@ -15,6 +16,7 @@ function getMusicIdFromUrl(url: string): string {
 }
 
 export function MusicPlayer({ musicUrl }: MusicPlayerProps) {
+  const { t } = useTranslation()
   const [isPlaying, setIsPlaying] = useState(false)
   const [useTestTones, setUseTestTones] = useState(false)
   const [hasAttemptedAutoplay, setHasAttemptedAutoplay] = useState(false)
@@ -122,7 +124,7 @@ export function MusicPlayer({ musicUrl }: MusicPlayerProps) {
           repeat: isPlaying ? Infinity : 0,
           ease: "easeOut"
         }}
-        aria-label={isPlaying ? "Mute music" : "Play music"}
+        aria-label={isPlaying ? t.musicPlayer.mute : t.musicPlayer.play}
       >
         {isPlaying ? (
           <Volume2 className="w-6 h-6 text-rose-600" />

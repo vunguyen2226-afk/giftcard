@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { Trash2, X, AlertTriangle } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
 interface DeleteCardDialogProps {
   cardId: string | null
@@ -19,6 +20,7 @@ export function DeleteCardDialog({
   onClose,
   onConfirm,
 }: DeleteCardDialogProps) {
+  const { t } = useTranslation()
   const [deleting, setDeleting] = useState(false)
 
   const handleDelete = async () => {
@@ -53,13 +55,12 @@ export function DeleteCardDialog({
 
           {/* Header */}
           <h2 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-2">
-            Delete Card
+            {t.deleteDialog.title}
           </h2>
 
           {/* Message */}
           <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
-            Are you sure you want to delete <strong>{cardName}</strong>? This will permanently
-            delete the card and all recipient links. This action cannot be undone.
+            {t.deleteDialog.confirmPrefix} <strong>{cardName}</strong>{t.deleteDialog.confirmSuffix}
           </p>
 
           {/* Actions */}
@@ -69,7 +70,7 @@ export function DeleteCardDialog({
               disabled={deleting}
               className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition-colors disabled:opacity-50"
             >
-              Cancel
+              {t.common.cancel}
             </button>
             <button
               onClick={handleDelete}
@@ -79,12 +80,12 @@ export function DeleteCardDialog({
               {deleting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                  Deleting...
+                  {t.deleteDialog.deleting}
                 </>
               ) : (
                 <>
                   <Trash2 className="w-4 h-4" />
-                  Delete
+                  {t.common.delete}
                 </>
               )}
             </button>

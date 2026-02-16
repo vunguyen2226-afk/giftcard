@@ -11,6 +11,7 @@ import { MusicPlayer } from "./music-player"
 import { ShareButtons } from "../shared/share-buttons"
 import { QrCodeGenerator } from "../shared/qr-code-generator"
 import { CardData, RecipientData, EffectType, FontFamily } from "@/types"
+import { useTranslation } from "@/lib/i18n"
 import { motion } from "motion/react"
 import Link from "next/link"
 
@@ -20,6 +21,7 @@ interface CardViewerClientProps {
 }
 
 export function CardViewerClient({ card, recipient }: CardViewerClientProps) {
+  const { t } = useTranslation()
   const [showEnvelope, setShowEnvelope] = useState(true)
   const [showCard, setShowCard] = useState(false)
 
@@ -72,6 +74,7 @@ export function CardViewerClient({ card, recipient }: CardViewerClientProps) {
               fontFamily={card.fontFamily as FontFamily}
               primaryColor={card.primaryColor}
               imageUrl={card.imageUrl}
+              backgroundPresetId={card.backgroundPresetId}
               className={card.templateId}
             />
 
@@ -98,7 +101,7 @@ export function CardViewerClient({ card, recipient }: CardViewerClientProps) {
                   href="/"
                   className="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg shadow-lg transition-colors"
                 >
-                  Create Your Own Card
+                  {t.viewer.createYourOwn}
                 </Link>
               </motion.div>
             </div>

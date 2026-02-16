@@ -2,6 +2,7 @@
 
 import { CardTemplateProps } from "@/types"
 import { getBackgroundPresetById } from "@/lib/background-presets"
+import { useTranslation } from "@/lib/i18n"
 
 export function MinimalTemplate({
   senderName,
@@ -13,6 +14,7 @@ export function MinimalTemplate({
   backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
+  const { t } = useTranslation()
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
@@ -49,7 +51,7 @@ export function MinimalTemplate({
         {/* Small understated recipient name */}
         <div className="mb-16 text-center">
           <div className="text-sm font-medium tracking-widest uppercase text-neutral-400 mb-2">
-            For
+            {t.templateLabels.for}
           </div>
           <div className="text-2xl font-light text-neutral-700">
             {recipientName}
@@ -82,7 +84,7 @@ export function MinimalTemplate({
         {/* Small understated sender name */}
         <div className="text-center">
           <div className="text-sm font-medium tracking-widest uppercase text-neutral-400 mb-2">
-            From
+            {t.templateLabels.from}
           </div>
           <div
             className="text-xl font-normal"

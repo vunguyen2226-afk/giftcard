@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X, Mail, CheckCircle, AlertCircle } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
 interface SendEmailModalProps {
   cardId: string | null
@@ -12,6 +13,7 @@ interface SendEmailModalProps {
 }
 
 export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: SendEmailModalProps) {
+  const { t } = useTranslation()
   const [sending, setSending] = useState(false)
   const [result, setResult] = useState<{ sent: number; failed: number; errors: any[] } | null>(null)
 
@@ -61,7 +63,7 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Send Card Emails</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.sendEmailDialog.title}</h2>
             <button
               onClick={handleClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -78,12 +80,11 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
                   <Mail className="w-8 h-8 text-rose-600" />
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 text-center">
-                  Send card notification emails to all recipients with email addresses.
+                  {t.sendEmailDialog.description}
                 </p>
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                   <p className="text-sm text-blue-800 dark:text-blue-300">
-                    <strong>Note:</strong> Only recipients with email addresses will receive notifications.
-                    Each recipient will get a personalized link to view their card.
+                    <strong>{t.sendEmailDialog.note}</strong> {t.sendEmailDialog.noteDetail}
                   </p>
                 </div>
               </>
@@ -92,7 +93,7 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
             {sending && (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-rose-600 border-t-transparent mx-auto mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">Sending emails...</p>
+                <p className="text-gray-600 dark:text-gray-400">{t.sendEmailDialog.sending}</p>
               </div>
             )}
 
@@ -103,10 +104,10 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-green-800 dark:text-green-300">
-                        Successfully sent!
+                        {t.sendEmailDialog.successTitle}
                       </p>
                       <p className="text-sm text-green-700 dark:text-green-400">
-                        {result.sent} email{result.sent !== 1 ? "s" : ""} sent successfully.
+                        {result.sent} {t.sendEmailDialog.successMessage}
                       </p>
                     </div>
                   </div>
@@ -117,10 +118,10 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
                     <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-red-800 dark:text-red-300">
-                        Some emails failed
+                        {t.sendEmailDialog.failTitle}
                       </p>
                       <p className="text-sm text-red-700 dark:text-red-400">
-                        {result.failed} email{result.failed !== 1 ? "s" : ""} could not be sent.
+                        {result.failed} {t.sendEmailDialog.failMessage}
                       </p>
                       {result.errors.length > 0 && (
                         <div className="mt-2 text-xs text-red-600 dark:text-red-400">
@@ -142,14 +143,14 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
                   onClick={handleClose}
                   className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition-colors"
                 >
-                  Cancel
+                  {t.common.cancel}
                 </button>
                 <button
                   onClick={handleSend}
                   className="flex-1 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <Mail className="w-4 h-4" />
-                  Send Emails
+                  {t.sendEmailDialog.sendButton}
                 </button>
               </>
             )}
@@ -159,7 +160,7 @@ export function SendEmailModal({ cardId, recipientCount, isOpen, onClose }: Send
                 onClick={handleClose}
                 className="w-full px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-colors"
               >
-                Done
+                {t.sendEmailDialog.done}
               </button>
             )}
           </div>

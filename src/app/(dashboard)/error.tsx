@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslation } from "@/lib/i18n"
+
 // Dashboard-specific error boundary
 
 interface ErrorProps {
@@ -8,6 +10,8 @@ interface ErrorProps {
 }
 
 export default function DashboardError({ error, reset }: ErrorProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center space-y-6">
@@ -31,10 +35,10 @@ export default function DashboardError({ error, reset }: ErrorProps) {
         {/* Error message */}
         <div className="space-y-2">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            Unable to load dashboard
+            {t.dashboardError.title}
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            {error.message || "We encountered an error loading your cards. Please try again."}
+            {error.message || t.dashboardError.defaultMessage}
           </p>
         </div>
 
@@ -44,13 +48,13 @@ export default function DashboardError({ error, reset }: ErrorProps) {
             onClick={reset}
             className="px-6 py-3 bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white font-medium rounded-lg transition-colors"
           >
-            Try again
+            {t.dashboardError.tryAgain}
           </button>
           <a
             href="/"
             className="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
           >
-            Go home
+            {t.dashboardError.goHome}
           </a>
         </div>
       </div>

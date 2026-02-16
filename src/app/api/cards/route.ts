@@ -56,6 +56,7 @@ export async function POST(request: Request) {
       effect,
       imageUrl,
       backgroundMusic,
+      backgroundPresetId,
       recipients,
     } = body
 
@@ -85,6 +86,7 @@ export async function POST(request: Request) {
         effect: effect || "confetti",
         imageUrl: imageUrl || null,
         backgroundMusic: backgroundMusic || null,
+        backgroundPresetId: backgroundPresetId || null,
         userId: session.user.id,
         recipients: {
           create: recipientsData,

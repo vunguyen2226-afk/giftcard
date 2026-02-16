@@ -83,6 +83,7 @@ export const vi: TranslationKeys = {
   // Template selector
   templates: {
     title: "Chọn Mẫu Thiệp",
+    subtitle: "Chọn thiết kế phù hợp nhất với phong cách lời chúc của bạn",
     traditional: "Truyền Thống",
     traditionalDesc: "Chủ đề Tết Nguyên Đán với sắc đỏ và vàng",
     modern: "Hiện Đại",
@@ -98,9 +99,12 @@ export const vi: TranslationKeys = {
   // Template content
   templateContent: {
     happyNewYear: "Chúc Mừng Năm Mới",
+    happy: "Chúc Mừng",
+    newYear: "Năm Mới",
     lunarNewYear: "Chúc Mừng Năm Mới",
     dear: "Kính gửi",
     withWarmWishes: "Thân ái,",
+    withWarmestRegards: "Trân trọng,",
     newYear2026: "2026",
   },
 
@@ -118,20 +122,28 @@ export const vi: TranslationKeys = {
     xuanDaVe: "Xuân Đã Về",
     muaXuanOi: "Mùa Xuân Ơi",
     lyNguaO: "Lý Ngựa Ô",
+    missingFilesBanner: "Không tìm thấy file nhạc. Xem trước dùng âm thử thay thế.",
+    missingFilesHint: "Thêm file MP3 vào /public/music/ để bật nhạc thật.",
+    testToneLabel: "Âm thử",
   },
 
   // Effect selector
   effects: {
     label: "Hiệu Ứng Hình Ảnh",
     fireworks: "Pháo Hoa",
+    fireworksDesc: "Pháo hoa rực rỡ chào mừng",
     snow: "Tuyết Rơi",
+    snowDesc: "Bông tuyết nhẹ nhàng rơi",
     cherryBlossom: "Hoa Anh Đào",
+    cherryBlossomDesc: "Cánh hoa anh đào dịu dàng",
     confetti: "Confetti",
+    confettiDesc: "Mảnh giấy lễ hội sắc màu",
   },
 
   // Font picker
   fonts: {
     label: "Kiểu Chữ",
+    sampleText: "Chúc Mừng Năm Mới!",
     sansSerif: "Sans-serif",
     serif: "Serif",
     cursive: "Viết Tay Nghệ Thuật",
@@ -142,6 +154,25 @@ export const vi: TranslationKeys = {
   // Color picker
   colors: {
     label: "Bảng Màu",
+    categoryTet: "Tết / Năm Mới",
+    categoryWarm: "Tông Ấm",
+    categoryCool: "Tông Mát",
+    categoryNeutral: "Trung Tính",
+    customLabel: "Hoặc nhập mã màu tùy chỉnh",
+    customHint: "Nhập mã màu hex (ví dụ: #FF5733)",
+    currentColor: "Màu Hiện Tại",
+  },
+
+  // Background picker
+  backgrounds: {
+    label: "Cảnh Nền",
+    none: "Mặc Định",
+    peachBlossom: "Vườn Hoa Đào",
+    goldenLanterns: "Đêm Đèn Lồng Vàng",
+    maiFlowerField: "Đồng Hoa Mai",
+    luckyRedSilk: "Lụa Đỏ May Mắn",
+    springMorning: "Buổi Sáng Mùa Xuân",
+    fireworksSky: "Bầu Trời Pháo Hoa",
   },
 
   // Image uploader
@@ -151,6 +182,8 @@ export const vi: TranslationKeys = {
     dragDrop: "hoặc kéo thả",
     maxSize: "PNG, JPG, GIF tối đa 5MB",
     uploading: "Đang tải lên...",
+    invalidType: "Loại tệp không hợp lệ. Vui lòng tải JPG, PNG, WEBP hoặc GIF.",
+    tooLarge: "Tệp quá lớn. Kích thước tối đa là 5MB.",
   },
 
   // Message editor
@@ -182,6 +215,9 @@ export const vi: TranslationKeys = {
     recipientCount: "người nhận",
     maxRecipients: "Tối đa 50 người nhận",
     noRecipients: "Chưa thêm người nhận nào",
+    addOneByOne: "Thêm Từng Người",
+    bulkAdd: "Thêm Hàng Loạt",
+    bulkPlaceholder: "Nhập mỗi người nhận một dòng\nĐịnh dạng: Tên, Email (tùy chọn)\nVí dụ:\nNguyễn Văn A, a@example.com\nTrần Thị B",
   },
 
   // Card preview
@@ -192,6 +228,17 @@ export const vi: TranslationKeys = {
     sending: "Đang tạo thiệp...",
     success: "Tạo thiệp thành công!",
     error: "Tạo thiệp thất bại. Vui lòng thử lại.",
+    summary: "Tóm Tắt Thiệp",
+    template: "Mẫu Thiệp",
+    effect: "Hiệu Ứng",
+    recipientsLabel: "Người Nhận",
+    people: "người",
+    backgroundMusic: "Nhạc Nền",
+    customImage: "Ảnh Tùy Chỉnh",
+    font: "Kiểu Chữ",
+    yes: "Có",
+    no: "Không",
+    uniqueLinkNote: "Mỗi người nhận sẽ nhận được một link cá nhân riêng để xem thiệp",
   },
 
   // Dashboard
@@ -236,6 +283,7 @@ export const vi: TranslationKeys = {
   viewer: {
     openEnvelope: "Chạm để mở",
     musicToggle: "Bật/Tắt nhạc",
+    createYourOwn: "Tạo Thiệp Của Bạn",
   },
 
   // Share modal
@@ -245,5 +293,98 @@ export const vi: TranslationKeys = {
     qrCode: "Mã QR",
     email: "Gửi qua Email",
     socialShare: "Chia sẻ lên mạng xã hội",
+  },
+
+  // Share buttons & QR
+  shareButtons: {
+    shareThisCard: "Chia sẻ thiệp này",
+    copyLink: "Sao Chép Link",
+    scanToView: "Quét để xem",
+    downloadQR: "Tải Mã QR",
+  },
+
+  // Template labels
+  templateLabels: {
+    to: "Gửi",
+    from: "Từ",
+    for: "Dành cho",
+    withLoveFrom: "Thân ái từ",
+  },
+
+  // Dashboard menu
+  dashboardMenu: {
+    viewCard: "Xem Thiệp",
+    viewStats: "Xem Thống Kê",
+    share: "Chia Sẻ",
+    sendEmails: "Gửi Email",
+    delete: "Xóa",
+    recipientsSuffix: "người nhận",
+    viewsSuffix: "lượt xem",
+  },
+
+  // Delete dialog
+  deleteDialog: {
+    title: "Xóa Thiệp",
+    confirmPrefix: "Bạn có chắc muốn xóa",
+    confirmSuffix: "? Thao tác này sẽ xóa vĩnh viễn thiệp và tất cả link người nhận. Không thể hoàn tác.",
+    deleting: "Đang xóa...",
+  },
+
+  // Send email dialog
+  sendEmailDialog: {
+    title: "Gửi Email Thiệp",
+    description: "Gửi email thông báo thiệp đến tất cả người nhận có địa chỉ email.",
+    note: "Lưu ý:",
+    noteDetail: "Chỉ những người nhận có địa chỉ email mới nhận được thông báo. Mỗi người nhận sẽ nhận được một link cá nhân để xem thiệp.",
+    sending: "Đang gửi email...",
+    successTitle: "Gửi thành công!",
+    successMessage: "email đã gửi thành công.",
+    failTitle: "Một số email thất bại",
+    failMessage: "email không thể gửi được.",
+    sendButton: "Gửi Email",
+    done: "Xong",
+  },
+
+  // Card stats
+  cardStats: {
+    title: "Thống Kê Thiệp",
+    totalRecipients: "Tổng Người Nhận",
+    totalViews: "Tổng Lượt Xem",
+    addMoreRecipients: "Thêm Người Nhận",
+    recipients: "Người Nhận",
+    notViewed: "Chưa xem",
+    copyLink: "Sao chép link cá nhân",
+  },
+
+  // Add recipients dialog
+  addRecipientsDialog: {
+    title: "Thêm Người Nhận",
+    namePlaceholder: "Tên người nhận *",
+    emailPlaceholder: "Email (tùy chọn)",
+    addAnother: "Thêm Người Nhận Khác",
+    adding: "Đang thêm...",
+    addButton: "Thêm Người Nhận",
+    errorNoName: "Vui lòng thêm ít nhất một người nhận có tên",
+    errorInvalidEmail: "Email không hợp lệ:",
+  },
+
+  // Dashboard error
+  dashboardError: {
+    title: "Không thể tải bảng điều khiển",
+    defaultMessage: "Đã xảy ra lỗi khi tải thiệp của bạn. Vui lòng thử lại.",
+    tryAgain: "Thử lại",
+    goHome: "Về trang chủ",
+  },
+
+  // Message editor extras
+  messageEditor: {
+    show: "Hiện",
+    hide: "Ẩn",
+  },
+
+  // Music player
+  musicPlayer: {
+    mute: "Tắt nhạc",
+    play: "Phát nhạc",
   },
 } as const

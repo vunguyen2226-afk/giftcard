@@ -20,6 +20,7 @@ export interface TemplateMetadata {
   name: string
   description: string
   thumbnail: string   // path to preview image
+  defaultImage?: string // default card image when template is selected
   defaultColor: string
   defaultFont: FontFamily
   category: "traditional" | "modern" | "animated" | "minimal" | "elegant"
@@ -33,6 +34,7 @@ export interface CardTemplateProps {
   fontFamily: FontFamily
   primaryColor: string
   imageUrl?: string
+  backgroundPresetId?: string
   className?: string
 }
 
@@ -46,6 +48,7 @@ export interface CardData {
   fontFamily: string
   primaryColor: string
   backgroundMusic?: string
+  backgroundPresetId?: string
   effect: EffectType
   imageUrl?: string
   createdAt: string
@@ -80,6 +83,7 @@ export interface EditorState {
   effect: EffectType
   imageUrl?: string
   backgroundMusic?: string
+  backgroundPresetId?: string
 }
 
 // API response types

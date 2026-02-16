@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Copy, Facebook, MessageCircle, Share2, Check } from "lucide-react"
 import { motion } from "motion/react"
+import { useTranslation } from "@/lib/i18n"
 
 interface ShareButtonsProps {
   url: string
@@ -10,6 +11,7 @@ interface ShareButtonsProps {
 }
 
 export function ShareButtons({ url, title }: ShareButtonsProps) {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
   const handleCopyLink = async () => {
@@ -31,7 +33,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800">Share this card</h3>
+      <h3 className="text-lg font-semibold text-gray-800">{t.shareButtons.shareThisCard}</h3>
 
       <div className="flex flex-wrap gap-3 justify-center">
         {/* Copy Link */}
@@ -44,12 +46,12 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
           {copied ? (
             <>
               <Check className="w-4 h-4" />
-              Copied!
+              {t.common.copied}
             </>
           ) : (
             <>
               <Copy className="w-4 h-4" />
-              Copy Link
+              {t.shareButtons.copyLink}
             </>
           )}
         </motion.button>

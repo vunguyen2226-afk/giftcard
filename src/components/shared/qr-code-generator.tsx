@@ -4,6 +4,7 @@ import { useRef } from "react"
 import { QRCodeCanvas } from "qrcode.react"
 import { Download } from "lucide-react"
 import { motion } from "motion/react"
+import { useTranslation } from "@/lib/i18n"
 
 interface QrCodeGeneratorProps {
   url: string
@@ -11,6 +12,7 @@ interface QrCodeGeneratorProps {
 }
 
 export function QrCodeGenerator({ url, title = "Card QR Code" }: QrCodeGeneratorProps) {
+  const { t } = useTranslation()
   const qrRef = useRef<HTMLDivElement>(null)
 
   const handleDownload = () => {
@@ -26,7 +28,7 @@ export function QrCodeGenerator({ url, title = "Card QR Code" }: QrCodeGenerator
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800">Scan to view</h3>
+      <h3 className="text-lg font-semibold text-gray-800">{t.shareButtons.scanToView}</h3>
 
       <div
         ref={qrRef}
@@ -47,7 +49,7 @@ export function QrCodeGenerator({ url, title = "Card QR Code" }: QrCodeGenerator
         whileTap={{ scale: 0.95 }}
       >
         <Download className="w-4 h-4" />
-        Download QR Code
+        {t.shareButtons.downloadQR}
       </motion.button>
     </div>
   )

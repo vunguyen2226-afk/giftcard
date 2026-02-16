@@ -2,6 +2,7 @@
 
 import { CardTemplateProps } from "@/types"
 import { getBackgroundPresetById } from "@/lib/background-presets"
+import { useTranslation } from "@/lib/i18n"
 
 export function ModernTemplate({
   senderName,
@@ -13,6 +14,7 @@ export function ModernTemplate({
   backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
+  const { t } = useTranslation()
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
@@ -61,13 +63,13 @@ export function ModernTemplate({
         <div className="max-w-2xl w-full bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-white/20">
           {/* Large year number */}
           <div className="absolute -top-8 -right-8 text-[200px] font-black text-white/5 leading-none select-none">
-            2026
+            {t.templateContent.newYear2026}
           </div>
 
           {/* Recipient name at top */}
           <div className="mb-8 text-center">
             <div className="text-sm font-medium tracking-widest text-white/70 uppercase mb-2">
-              To
+              {t.templateLabels.to}
             </div>
             <div className="text-4xl font-bold text-white">{recipientName}</div>
           </div>
@@ -92,7 +94,7 @@ export function ModernTemplate({
           {/* Sender name at bottom-right */}
           <div className="text-right">
             <div className="text-sm font-medium tracking-widest text-white/70 uppercase mb-1">
-              From
+              {t.templateLabels.from}
             </div>
             <div className="text-2xl font-semibold text-white">{senderName}</div>
           </div>

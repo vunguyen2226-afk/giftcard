@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "motion/react"
 import { X } from "lucide-react"
 import { ShareButtons } from "@/components/shared/share-buttons"
+import { useTranslation } from "@/lib/i18n"
 
 interface ShareModalProps {
   cardUrl: string
@@ -12,6 +13,7 @@ interface ShareModalProps {
 }
 
 export function ShareModal({ cardUrl, cardTitle, isOpen, onClose }: ShareModalProps) {
+  const { t } = useTranslation()
   if (!isOpen) return null
 
   return (
@@ -25,7 +27,7 @@ export function ShareModal({ cardUrl, cardTitle, isOpen, onClose }: ShareModalPr
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Share Card</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t.shareModal.title}</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"

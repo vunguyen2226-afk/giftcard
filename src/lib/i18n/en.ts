@@ -81,6 +81,7 @@ export const en = {
   // Template selector
   templates: {
     title: "Choose a Template",
+    subtitle: "Select a design that best fits your greeting style",
     traditional: "Traditional",
     traditionalDesc: "Classic Tet/Lunar New Year theme with red and gold",
     modern: "Modern",
@@ -96,9 +97,12 @@ export const en = {
   // Template content
   templateContent: {
     happyNewYear: "Happy New Year",
+    happy: "Happy",
+    newYear: "New Year",
     lunarNewYear: "Chúc Mừng Năm Mới",
     dear: "Dear",
     withWarmWishes: "With warm wishes,",
+    withWarmestRegards: "With warmest regards,",
     newYear2026: "2026",
   },
 
@@ -116,20 +120,28 @@ export const en = {
     xuanDaVe: "Xuân Đã Về",
     muaXuanOi: "Mùa Xuân Ơi",
     lyNguaO: "Lý Ngựa Ô",
+    missingFilesBanner: "Music files not found. Preview uses test tones instead.",
+    missingFilesHint: "Add MP3 files to /public/music/ to enable real music.",
+    testToneLabel: "Test tone",
   },
 
   // Effect selector
   effects: {
     label: "Visual Effect",
     fireworks: "Fireworks",
+    fireworksDesc: "Colorful bursts of celebration",
     snow: "Snow",
+    snowDesc: "Gentle falling snowflakes",
     cherryBlossom: "Cherry Blossom",
+    cherryBlossomDesc: "Delicate pink petals falling",
     confetti: "Confetti",
+    confettiDesc: "Festive colorful paper pieces",
   },
 
   // Font picker
   fonts: {
     label: "Font Style",
+    sampleText: "Happy New Year!",
     sansSerif: "Sans-serif",
     serif: "Serif",
     cursive: "Cursive",
@@ -140,6 +152,25 @@ export const en = {
   // Color picker
   colors: {
     label: "Color Theme",
+    categoryTet: "Tet / Lunar New Year",
+    categoryWarm: "Warm Tones",
+    categoryCool: "Cool Tones",
+    categoryNeutral: "Neutral",
+    customLabel: "Or enter custom color",
+    customHint: "Enter hex color code (e.g., #FF5733)",
+    currentColor: "Current Color",
+  },
+
+  // Background picker
+  backgrounds: {
+    label: "Background Scene",
+    none: "Default",
+    peachBlossom: "Peach Blossom Garden",
+    goldenLanterns: "Golden Lanterns Night",
+    maiFlowerField: "Mai Flower Field",
+    luckyRedSilk: "Lucky Red Silk",
+    springMorning: "Spring Morning",
+    fireworksSky: "Fireworks Sky",
   },
 
   // Image uploader
@@ -149,6 +180,8 @@ export const en = {
     dragDrop: "or drag and drop",
     maxSize: "PNG, JPG, GIF up to 5MB",
     uploading: "Uploading...",
+    invalidType: "Invalid file type. Please upload JPG, PNG, WEBP, or GIF.",
+    tooLarge: "File too large. Maximum size is 5MB.",
   },
 
   // Message editor
@@ -180,6 +213,9 @@ export const en = {
     recipientCount: "recipients",
     maxRecipients: "Maximum 50 recipients",
     noRecipients: "No recipients added yet",
+    addOneByOne: "Add One by One",
+    bulkAdd: "Bulk Add",
+    bulkPlaceholder: "Enter one recipient per line\nFormat: Name, Email (optional)\nExample:\nJohn Doe, john@example.com\nJane Smith",
   },
 
   // Card preview
@@ -190,6 +226,17 @@ export const en = {
     sending: "Creating cards...",
     success: "Cards created successfully!",
     error: "Failed to create cards. Please try again.",
+    summary: "Card Summary",
+    template: "Template",
+    effect: "Effect",
+    recipientsLabel: "Recipients",
+    people: "people",
+    backgroundMusic: "Background Music",
+    customImage: "Custom Image",
+    font: "Font",
+    yes: "Yes",
+    no: "No",
+    uniqueLinkNote: "Each recipient will receive a unique personalized link to view this card",
   },
 
   // Dashboard
@@ -234,6 +281,7 @@ export const en = {
   viewer: {
     openEnvelope: "Tap to open",
     musicToggle: "Toggle music",
+    createYourOwn: "Create Your Own Card",
   },
 
   // Share modal
@@ -243,6 +291,99 @@ export const en = {
     qrCode: "QR Code",
     email: "Send via Email",
     socialShare: "Share on social media",
+  },
+
+  // Share buttons & QR
+  shareButtons: {
+    shareThisCard: "Share this card",
+    copyLink: "Copy Link",
+    scanToView: "Scan to view",
+    downloadQR: "Download QR Code",
+  },
+
+  // Template labels
+  templateLabels: {
+    to: "To",
+    from: "From",
+    for: "For",
+    withLoveFrom: "With love from",
+  },
+
+  // Dashboard menu
+  dashboardMenu: {
+    viewCard: "View Card",
+    viewStats: "View Stats",
+    share: "Share",
+    sendEmails: "Send Emails",
+    delete: "Delete",
+    recipientsSuffix: "recipient(s)",
+    viewsSuffix: "view(s)",
+  },
+
+  // Delete dialog
+  deleteDialog: {
+    title: "Delete Card",
+    confirmPrefix: "Are you sure you want to delete",
+    confirmSuffix: "? This will permanently delete the card and all recipient links. This action cannot be undone.",
+    deleting: "Deleting...",
+  },
+
+  // Send email dialog
+  sendEmailDialog: {
+    title: "Send Card Emails",
+    description: "Send card notification emails to all recipients with email addresses.",
+    note: "Note:",
+    noteDetail: "Only recipients with email addresses will receive notifications. Each recipient will get a personalized link to view their card.",
+    sending: "Sending emails...",
+    successTitle: "Successfully sent!",
+    successMessage: "email(s) sent successfully.",
+    failTitle: "Some emails failed",
+    failMessage: "email(s) could not be sent.",
+    sendButton: "Send Emails",
+    done: "Done",
+  },
+
+  // Card stats
+  cardStats: {
+    title: "Card Statistics",
+    totalRecipients: "Total Recipients",
+    totalViews: "Total Views",
+    addMoreRecipients: "Add More Recipients",
+    recipients: "Recipients",
+    notViewed: "Not viewed",
+    copyLink: "Copy personal link",
+  },
+
+  // Add recipients dialog
+  addRecipientsDialog: {
+    title: "Add Recipients",
+    namePlaceholder: "Recipient name *",
+    emailPlaceholder: "Email (optional)",
+    addAnother: "Add Another Recipient",
+    adding: "Adding...",
+    addButton: "Add Recipients",
+    errorNoName: "Please add at least one recipient with a name",
+    errorInvalidEmail: "Invalid email:",
+  },
+
+  // Dashboard error
+  dashboardError: {
+    title: "Unable to load dashboard",
+    defaultMessage: "We encountered an error loading your cards. Please try again.",
+    tryAgain: "Try again",
+    goHome: "Go home",
+  },
+
+  // Message editor extras
+  messageEditor: {
+    show: "Show",
+    hide: "Hide",
+  },
+
+  // Music player
+  musicPlayer: {
+    mute: "Mute music",
+    play: "Play music",
   },
 } as const
 

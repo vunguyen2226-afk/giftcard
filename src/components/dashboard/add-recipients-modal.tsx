@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X, Plus, Trash2, UserPlus } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
 interface AddRecipientsModalProps {
   cardId: string | null
@@ -18,6 +19,7 @@ interface RecipientInput {
 }
 
 export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRecipientsModalProps) {
+  const { t } = useTranslation()
   const [recipients, setRecipients] = useState<RecipientInput[]>([
     { id: "1", name: "", email: "" },
   ])
@@ -49,7 +51,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
     // Validate
     const validRecipients = recipients.filter((r) => r.name.trim())
     if (validRecipients.length === 0) {
-      setError("Please add at least one recipient with a name")
+      setError(t.addRecipientsDialog.errorNoName)
       return
     }
 
@@ -57,7 +59,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     for (const r of validRecipients) {
       if (r.email && !emailRegex.test(r.email)) {
-        setError(`Invalid email: ${r.email}`)
+        setError(`${t.addRecipientsDialog.errorInvalidEmail} ${r.email}`)
         return
       }
     }
@@ -106,7 +108,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Add Recipients</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.addRecipientsDialog.title}</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -131,14 +133,14 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
                 <div className="flex-1 space-y-3">
                   <input
                     type="text"
-                    placeholder="Recipient name *"
+                    placeholder={t.addRecipientsDialog.namePlaceholder}
                     value={recipient.name}
                     onChange={(e) => updateRecipient(recipient.id, "name", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-rose-600 focus:border-transparent"
                   />
                   <input
                     type="email"
-                    placeholder="Email (optional)"
+                    placeholder={t.addRecipientsDialog.emailPlaceholder}
                     value={recipient.email}
                     onChange={(e) => updateRecipient(recipient.id, "email", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-rose-600 focus:border-transparent"
@@ -161,7 +163,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
               className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 dark:border-gray-700 hover:border-rose-600 dark:hover:border-rose-600 text-gray-600 dark:text-gray-400 hover:text-rose-600 rounded-lg transition-colors"
             >
               <Plus className="w-5 h-5" />
-              Add Another Recipient
+              {t.addRecipientsDialog.addAnother}
             </button>
           </div>
 
@@ -172,7 +174,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
               disabled={submitting}
               className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-lg transition-colors disabled:opacity-50"
             >
-              Cancel
+              {t.common.cancel}
             </button>
             <button
               onClick={handleSubmit}
@@ -182,12 +184,12 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
               {submitting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                  Adding...
+                  {t.addRecipientsDialog.adding}
                 </>
               ) : (
                 <>
                   <UserPlus className="w-4 h-4" />
-                  Add Recipients
+                  {t.addRecipientsDialog.addButton}
                 </>
               )}
             </button>

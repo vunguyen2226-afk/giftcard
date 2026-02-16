@@ -54,7 +54,7 @@ export function FontPicker({ selectedFont, onSelect }: FontPickerProps) {
                     className="text-2xl text-gray-700 dark:text-gray-300 mb-2"
                     style={{ fontFamily: font.cssFamily }}
                   >
-                    Happy New Year!
+                    {t.fonts.sampleText}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">{font.description}</p>
                 </div>

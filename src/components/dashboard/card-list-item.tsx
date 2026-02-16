@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion } from "motion/react"
 import { MoreVertical, Eye, Edit, Share2, Trash2, Mail, Users } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
+import { useTranslation } from "@/lib/i18n"
 
 interface CardListItemProps {
   card: {
@@ -33,6 +34,7 @@ export function CardListItem({
   onShare,
   onSendEmail,
 }: CardListItemProps) {
+  const { t } = useTranslation()
   const [showMenu, setShowMenu] = useState(false)
 
   const totalViews = card.recipients.reduce((sum, r) => sum + r.viewCount, 0)
@@ -85,7 +87,7 @@ export function CardListItem({
                   onClick={() => setShowMenu(false)}
                 >
                   <Eye className="w-4 h-4" />
-                  View Card
+                  {t.dashboardMenu.viewCard}
                 </Link>
                 <button
                   onClick={() => {
@@ -95,7 +97,7 @@ export function CardListItem({
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <Users className="w-4 h-4" />
-                  View Stats
+                  {t.dashboardMenu.viewStats}
                 </button>
                 <button
                   onClick={() => {
@@ -105,7 +107,7 @@ export function CardListItem({
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <Share2 className="w-4 h-4" />
-                  Share
+                  {t.dashboardMenu.share}
                 </button>
                 <button
                   onClick={() => {
@@ -115,7 +117,7 @@ export function CardListItem({
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <Mail className="w-4 h-4" />
-                  Send Emails
+                  {t.dashboardMenu.sendEmails}
                 </button>
                 <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
                 <button
@@ -126,7 +128,7 @@ export function CardListItem({
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <Trash2 className="w-4 h-4" />
-                  Delete
+                  {t.dashboardMenu.delete}
                 </button>
               </div>
             )}
@@ -142,11 +144,11 @@ export function CardListItem({
         <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
           <div className="flex items-center gap-1">
             <Users className="w-4 h-4" />
-            <span>{recipientCount} recipient{recipientCount !== 1 ? "s" : ""}</span>
+            <span>{recipientCount} {t.dashboardMenu.recipientsSuffix}</span>
           </div>
           <div className="flex items-center gap-1">
             <Eye className="w-4 h-4" />
-            <span>{totalViews} view{totalViews !== 1 ? "s" : ""}</span>
+            <span>{totalViews} {t.dashboardMenu.viewsSuffix}</span>
           </div>
         </div>
       </div>

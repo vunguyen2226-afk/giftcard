@@ -41,6 +41,7 @@ export function CardPreview({ editorState }: CardPreviewProps) {
           effect: editorState.effect,
           imageUrl: editorState.imageUrl,
           backgroundMusic: editorState.backgroundMusic,
+          backgroundPresetId: editorState.backgroundPresetId,
           recipients,
         }),
       })
@@ -80,6 +81,7 @@ export function CardPreview({ editorState }: CardPreviewProps) {
               fontFamily={editorState.fontFamily}
               primaryColor={editorState.primaryColor}
               imageUrl={editorState.imageUrl}
+              backgroundPresetId={editorState.backgroundPresetId}
             />
           </div>
         </div>
@@ -87,42 +89,42 @@ export function CardPreview({ editorState }: CardPreviewProps) {
 
       {/* Card Summary */}
       <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 space-y-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white">Card Summary</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white">{t.cardPreview.summary}</h3>
 
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Template</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.template}</p>
             <p className="font-medium text-gray-900 dark:text-white">{template?.name || "Unknown"}</p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Effect</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.effect}</p>
             <p className="font-medium text-gray-900 dark:text-white capitalize">
               {editorState.effect.replace("_", " ")}
             </p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Recipients</p>
-            <p className="font-medium text-gray-900 dark:text-white">{recipientCount} people</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.recipientsLabel}</p>
+            <p className="font-medium text-gray-900 dark:text-white">{recipientCount} {t.cardPreview.people}</p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Background Music</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.backgroundMusic}</p>
             <p className="font-medium text-gray-900 dark:text-white">
-              {editorState.backgroundMusic ? "Yes" : "No"}
+              {editorState.backgroundMusic ? t.cardPreview.yes : t.cardPreview.no}
             </p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Custom Image</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.customImage}</p>
             <p className="font-medium text-gray-900 dark:text-white">
-              {editorState.imageUrl ? "Yes" : "No"}
+              {editorState.imageUrl ? t.cardPreview.yes : t.cardPreview.no}
             </p>
           </div>
 
           <div>
-            <p className="text-gray-600 dark:text-gray-400">Font</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.cardPreview.font}</p>
             <p className="font-medium text-gray-900 dark:text-white capitalize">
               {editorState.fontFamily.replace("-", " ")}
             </p>
@@ -173,7 +175,7 @@ export function CardPreview({ editorState }: CardPreviewProps) {
       </button>
 
       <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-        Each recipient will receive a unique personalized link to view this card
+        {t.cardPreview.uniqueLinkNote}
       </p>
     </div>
   )

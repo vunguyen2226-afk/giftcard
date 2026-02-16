@@ -2,6 +2,7 @@
 
 import { CardTemplateProps } from "@/types"
 import { getBackgroundPresetById } from "@/lib/background-presets"
+import { useTranslation } from "@/lib/i18n"
 
 export function ElegantTemplate({
   senderName,
@@ -13,6 +14,7 @@ export function ElegantTemplate({
   backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
+  const { t } = useTranslation()
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
@@ -95,7 +97,7 @@ export function ElegantTemplate({
               className="text-2xl font-serif italic"
               style={{ color: primaryColor }}
             >
-              Dear {recipientName},
+              {t.templateContent.dear} {recipientName},
             </div>
           </div>
 
@@ -182,7 +184,7 @@ export function ElegantTemplate({
               className="text-lg font-serif mb-2"
               style={{ color: primaryColor, opacity: 0.7 }}
             >
-              With warmest regards,
+              {t.templateContent.withWarmestRegards}
             </div>
             <div
               className="text-3xl font-serif italic"

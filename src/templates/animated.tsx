@@ -2,6 +2,7 @@
 
 import { CardTemplateProps } from "@/types"
 import { getBackgroundPresetById } from "@/lib/background-presets"
+import { useTranslation } from "@/lib/i18n"
 
 export function AnimatedTemplate({
   senderName,
@@ -13,6 +14,7 @@ export function AnimatedTemplate({
   backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
+  const { t } = useTranslation()
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
@@ -81,7 +83,7 @@ export function AnimatedTemplate({
           }}
         >
           <div className="text-6xl font-black tracking-tight mb-2">
-            Happy
+            {t.templateContent.happy}
           </div>
           <div
             className="text-7xl font-black tracking-tight"
@@ -95,7 +97,7 @@ export function AnimatedTemplate({
               opacity: 0,
             }}
           >
-            New Year
+            {t.templateContent.newYear}
           </div>
         </div>
 
@@ -108,7 +110,7 @@ export function AnimatedTemplate({
           }}
         >
           <div className="text-sm font-semibold tracking-widest uppercase mb-2 text-white/80">
-            To
+            {t.templateLabels.to}
           </div>
           <div className="text-4xl font-bold">{recipientName}</div>
         </div>
@@ -161,7 +163,7 @@ export function AnimatedTemplate({
           }}
         >
           <div className="text-sm font-semibold tracking-widest uppercase mb-2 text-white/80">
-            With love from
+            {t.templateLabels.withLoveFrom}
           </div>
           <div className="text-3xl font-bold">{senderName}</div>
         </div>

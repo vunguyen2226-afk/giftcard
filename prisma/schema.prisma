@@ -68,9 +68,10 @@ model Card {
   message         String      @db.Text
   fontFamily      String      @default("sans-serif")
   primaryColor    String      @default("#e11d48")
-  backgroundMusic String?
-  effect          String      @default("confetti")
-  imageUrl        String?
+  backgroundMusic    String?
+  backgroundPresetId String?
+  effect             String      @default("confetti")
+  imageUrl           String?
   userId          String
   user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   recipients      Recipient[]

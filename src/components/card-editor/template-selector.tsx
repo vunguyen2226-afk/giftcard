@@ -4,7 +4,7 @@ import { useTranslation } from "@/lib/i18n"
 
 interface TemplateSelectorProps {
   selectedTemplateId: string
-  onSelect: (templateId: string, defaultColor: string, defaultFont: string) => void
+  onSelect: (templateId: string, defaultColor: string, defaultFont: string, defaultImage?: string) => void
 }
 
 export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelectorProps) {
@@ -15,7 +15,7 @@ export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelec
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.templates.title}</h2>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Select a design that best fits your greeting style
+          {t.templates.subtitle}
         </p>
       </div>
 
@@ -26,7 +26,7 @@ export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelec
           return (
             <button
               key={template.id}
-              onClick={() => onSelect(template.id, template.defaultColor, template.defaultFont)}
+              onClick={() => onSelect(template.id, template.defaultColor, template.defaultFont, template.defaultImage)}
               className={`
                 relative group rounded-xl overflow-hidden border-2 transition-all
                 hover:shadow-xl hover:scale-[1.02]

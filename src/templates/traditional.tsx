@@ -2,6 +2,7 @@
 
 import { CardTemplateProps } from "@/types"
 import { getBackgroundPresetById } from "@/lib/background-presets"
+import { useTranslation } from "@/lib/i18n"
 import {
   MaiFlower, Lantern, DragonMotif, BanhChung,
   CherryBlossomBranch, MaiPetals,
@@ -19,6 +20,7 @@ const FONT_MAP: Record<string, string> = {
 export function TraditionalTemplate({
   senderName, recipientName, message, fontFamily, primaryColor, imageUrl, backgroundPresetId, className = "",
 }: CardTemplateProps) {
+  const { t } = useTranslation()
   const bgPreset = backgroundPresetId ? getBackgroundPresetById(backgroundPresetId) : undefined
 
   return (
@@ -117,11 +119,11 @@ export function TraditionalTemplate({
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px] text-white">
-        <TraditionalHeader primaryColor={primaryColor} />
+        <TraditionalHeader primaryColor={primaryColor} lunarNewYear={t.templateContent.lunarNewYear} happyNewYear={t.templateContent.happyNewYear} />
 
         <div className="mb-6">
           <div className="text-2xl font-semibold text-amber-100">
-            Dear {recipientName}
+            {t.templateContent.dear} {recipientName}
           </div>
         </div>
 
@@ -131,7 +133,7 @@ export function TraditionalTemplate({
 
         <div className="mt-6 relative">
           <div className="px-6 py-2 bg-amber-400/20 rounded-lg border border-amber-400/50 backdrop-blur-sm">
-            <div className="text-sm text-amber-200 mb-1">With warm wishes,</div>
+            <div className="text-sm text-amber-200 mb-1">{t.templateContent.withWarmWishes}</div>
             <div className="text-xl font-semibold text-amber-100">{senderName}</div>
           </div>
         </div>
@@ -141,16 +143,16 @@ export function TraditionalTemplate({
 }
 
 // Sub-components to keep file manageable
-function TraditionalHeader({ primaryColor }: { primaryColor: string }) {
+function TraditionalHeader({ primaryColor, lunarNewYear, happyNewYear }: { primaryColor: string; lunarNewYear: string; happyNewYear: string }) {
   return (
     <div className="mb-8 text-center">
       <div className="text-sm font-medium tracking-widest text-amber-300 mb-2">
-        Chúc Mừng Năm Mới
+        {lunarNewYear}
       </div>
       <div className="flex items-center justify-center gap-4">
         <div className="w-12 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
         <div className="text-4xl font-bold tracking-wide" style={{ color: primaryColor }}>
-          Happy New Year
+          {happyNewYear}
         </div>
         <div className="w-12 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
       </div>

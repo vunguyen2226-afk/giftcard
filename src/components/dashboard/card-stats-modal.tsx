@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X, Copy, Check, Eye, Mail, Plus } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
+import { useTranslation } from "@/lib/i18n"
 
 interface Recipient {
   id: string
@@ -22,6 +23,7 @@ interface CardStatsModalProps {
 }
 
 export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: CardStatsModalProps) {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
   const [card, setCard] = useState<any>(null)
   const [recipients, setRecipients] = useState<Recipient[]>([])
@@ -82,7 +84,7 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Card Statistics</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.cardStats.title}</h2>
               {card && (
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                   {card.senderName} • Created {formatDistanceToNow(new Date(card.createdAt), { addSuffix: true })}
@@ -108,13 +110,13 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
                 {/* Summary Stats */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Total Recipients</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">{t.cardStats.totalRecipients}</div>
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
                       {recipients.length}
                     </div>
                   </div>
                   <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Total Views</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">{t.cardStats.totalViews}</div>
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
                       {totalViews}
                     </div>
@@ -130,13 +132,13 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition-colors"
                 >
                   <Plus className="w-5 h-5" />
-                  Add More Recipients
+                  {t.cardStats.addMoreRecipients}
                 </button>
 
                 {/* Recipients Table */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                    Recipients
+                    {t.cardStats.recipients}
                   </h3>
                   <div className="space-y-2">
                     {recipients.map((recipient) => (
@@ -170,7 +172,7 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
                           )}
                           {!recipient.firstViewedAt && (
                             <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                              Not viewed
+                              {t.cardStats.notViewed}
                             </div>
                           )}
                         </div>
@@ -179,7 +181,7 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
                         <button
                           onClick={() => copyUrl(recipient.personalSlug, recipient.id)}
                           className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                          title="Copy personal link"
+                          title={t.cardStats.copyLink}
                         >
                           {copiedId === recipient.id ? (
                             <Check className="w-4 h-4 text-green-600" />

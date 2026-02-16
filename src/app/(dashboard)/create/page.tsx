@@ -11,6 +11,7 @@ import { ColorPicker } from "@/components/card-editor/color-picker"
 import { EffectSelector } from "@/components/card-editor/effect-selector"
 import { ImageUploader } from "@/components/card-editor/image-uploader"
 import { MusicSelector } from "@/components/card-editor/music-selector"
+import { BackgroundPicker } from "@/components/card-editor/background-picker"
 import { RecipientManager } from "@/components/card-editor/recipient-manager"
 import { CardPreview } from "@/components/card-editor/card-preview"
 import { getTemplateComponent } from "@/templates"
@@ -19,7 +20,7 @@ import { useTranslation } from "@/lib/i18n"
 // Action types
 type EditorAction =
   | { type: "SET_STEP"; step: number }
-  | { type: "SET_TEMPLATE"; templateId: string; defaultColor: string; defaultFont: FontFamily }
+  | { type: "SET_TEMPLATE"; templateId: string; defaultColor: string; defaultFont: FontFamily; defaultImage?: string }
   | { type: "SET_SENDER_NAME"; name: string }
   | { type: "SET_MESSAGE"; message: string }
   | { type: "SET_FONT"; font: FontFamily }
@@ -27,6 +28,7 @@ type EditorAction =
   | { type: "SET_EFFECT"; effect: EffectType }
   | { type: "SET_IMAGE"; imageUrl: string | undefined }
   | { type: "SET_MUSIC"; musicUrl: string | undefined }
+  | { type: "SET_BACKGROUND_PRESET"; backgroundPresetId: string | undefined }
   | { type: "ADD_RECIPIENT"; name: string; email?: string }
   | { type: "REMOVE_RECIPIENT"; index: number }
   | { type: "BULK_ADD_RECIPIENTS"; recipients: { name: string; email?: string }[] }
@@ -42,6 +44,7 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
         templateId: action.templateId,
         primaryColor: action.defaultColor,
         fontFamily: action.defaultFont,
+        imageUrl: action.defaultImage,
       }
     case "SET_SENDER_NAME":
       return { ...state, senderName: action.name }
@@ -57,6 +60,8 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
       return { ...state, imageUrl: action.imageUrl }
     case "SET_MUSIC":
       return { ...state, backgroundMusic: action.musicUrl }
+    case "SET_BACKGROUND_PRESET":
+      return { ...state, backgroundPresetId: action.backgroundPresetId }
     case "ADD_RECIPIENT":
       return {
         ...state,
@@ -167,8 +172,8 @@ export default function CreateCardPage() {
             {state.step === 1 && (
               <TemplateSelector
                 selectedTemplateId={state.templateId}
-                onSelect={(id, color, font) =>
-                  dispatch({ type: "SET_TEMPLATE", templateId: id, defaultColor: color, defaultFont: font as FontFamily })
+                onSelect={(id, color, font, image) =>
+                  dispatch({ type: "SET_TEMPLATE", templateId: id, defaultColor: color, defaultFont: font as FontFamily, defaultImage: image })
                 }
               />
             )}
@@ -198,6 +203,11 @@ export default function CreateCardPage() {
                 <ColorPicker
                   selectedColor={state.primaryColor}
                   onSelect={(color) => dispatch({ type: "SET_COLOR", color })}
+                />
+
+                <BackgroundPicker
+                  selectedBackground={state.backgroundPresetId}
+                  onSelect={(id) => dispatch({ type: "SET_BACKGROUND_PRESET", backgroundPresetId: id })}
                 />
 
                 <EffectSelector
@@ -278,6 +288,7 @@ export default function CreateCardPage() {
                       fontFamily={state.fontFamily}
                       primaryColor={state.primaryColor}
                       imageUrl={state.imageUrl}
+                      backgroundPresetId={state.backgroundPresetId}
                     />
                   </div>
                 ) : (
@@ -342,8 +353,8 @@ export default function CreateCardPage() {
             {state.step === 1 && (
               <TemplateSelector
                 selectedTemplateId={state.templateId}
-                onSelect={(id, color, font) =>
-                  dispatch({ type: "SET_TEMPLATE", templateId: id, defaultColor: color, defaultFont: font as FontFamily })
+                onSelect={(id, color, font, image) =>
+                  dispatch({ type: "SET_TEMPLATE", templateId: id, defaultColor: color, defaultFont: font as FontFamily, defaultImage: image })
                 }
               />
             )}
@@ -363,6 +374,10 @@ export default function CreateCardPage() {
                 <ColorPicker
                   selectedColor={state.primaryColor}
                   onSelect={(color) => dispatch({ type: "SET_COLOR", color })}
+                />
+                <BackgroundPicker
+                  selectedBackground={state.backgroundPresetId}
+                  onSelect={(id) => dispatch({ type: "SET_BACKGROUND_PRESET", backgroundPresetId: id })}
                 />
                 <EffectSelector
                   selectedEffect={state.effect}

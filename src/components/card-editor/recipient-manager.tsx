@@ -64,7 +64,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
           }`}
         >
-          Add One by One
+          {t.recipients.addOneByOne}
         </button>
         <button
           onClick={() => setBulkMode(true)}
@@ -74,7 +74,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
               : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
           }`}
         >
-          Bulk Add
+          {t.recipients.bulkAdd}
         </button>
       </div>
 
@@ -121,7 +121,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
           <textarea
             value={bulkText}
             onChange={(e) => setBulkText(e.target.value)}
-            placeholder="Enter one recipient per line&#10;Format: Name, Email (optional)&#10;Example:&#10;John Doe, john@example.com&#10;Jane Smith&#10;Bob Wilson, bob@example.com"
+            placeholder={t.recipients.bulkPlaceholder}
             rows={8}
             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg
                      bg-white dark:bg-gray-800 text-gray-900 dark:text-white

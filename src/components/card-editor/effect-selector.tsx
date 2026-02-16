@@ -8,31 +8,11 @@ interface EffectOption {
   emoji: string
 }
 
-const EFFECT_OPTIONS: EffectOption[] = [
-  {
-    id: "fireworks",
-    name: "Fireworks",
-    description: "Colorful bursts of celebration",
-    emoji: "🎆",
-  },
-  {
-    id: "snow",
-    name: "Snow",
-    description: "Gentle falling snowflakes",
-    emoji: "❄️",
-  },
-  {
-    id: "cherry_blossom",
-    name: "Cherry Blossom",
-    description: "Delicate pink petals falling",
-    emoji: "🌸",
-  },
-  {
-    id: "confetti",
-    name: "Confetti",
-    description: "Festive colorful paper pieces",
-    emoji: "🎉",
-  },
+const EFFECT_IDS: { id: EffectType; emoji: string }[] = [
+  { id: "fireworks", emoji: "🎆" },
+  { id: "snow", emoji: "❄️" },
+  { id: "cherry_blossom", emoji: "🌸" },
+  { id: "confetti", emoji: "🎉" },
 ]
 
 interface EffectSelectorProps {
@@ -50,6 +30,13 @@ export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps
     confetti: t.effects.confetti,
   }
 
+  const effectDescMap: Record<string, string> = {
+    fireworks: t.effects.fireworksDesc,
+    snow: t.effects.snowDesc,
+    cherry_blossom: t.effects.cherryBlossomDesc,
+    confetti: t.effects.confettiDesc,
+  }
+
   return (
     <div className="space-y-3">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -57,7 +44,7 @@ export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps
       </label>
 
       <div className="grid grid-cols-2 gap-3">
-        {EFFECT_OPTIONS.map((effect) => {
+        {EFFECT_IDS.map((effect) => {
           const isSelected = effect.id === selectedEffect
 
           return (
@@ -77,7 +64,7 @@ export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps
               <div className="text-4xl mb-2">{effect.emoji}</div>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  {effectNameMap[effect.id] || effect.name}
+                  {effectNameMap[effect.id]}
                 </span>
                 {isSelected && (
                   <svg className="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 20 20">
@@ -89,7 +76,7 @@ export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps
                   </svg>
                 )}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-400">{effect.description}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">{effectDescMap[effect.id]}</p>
             </button>
           )
         })}

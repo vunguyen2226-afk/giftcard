@@ -75,6 +75,7 @@ export default async function CardViewerPage({ params }: PageProps) {
     fontFamily: recipient.card.fontFamily,
     primaryColor: recipient.card.primaryColor,
     backgroundMusic: recipient.card.backgroundMusic || undefined,
+    backgroundPresetId: recipient.card.backgroundPresetId || undefined,
     effect: recipient.card.effect as import("@/types").EffectType,
     imageUrl: recipient.card.imageUrl || undefined,
     createdAt: recipient.card.createdAt.toISOString()
