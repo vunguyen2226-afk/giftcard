@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { MusicOption } from "@/types"
 import { useTranslation } from "@/lib/i18n"
+import { playTestTone, checkMusicFileExists } from "@/lib/audio-fallback"
 
 interface MusicCategory {
   key: "general" | "vietnamese"
@@ -12,10 +13,7 @@ const MUSIC_CATEGORIES: MusicCategory[] = [
   {
     key: "general",
     options: [
-      { id: "festive", name: "Festive Celebration", url: "/music/festive.mp3", duration: 30 },
-      { id: "calm", name: "Calm & Peaceful", url: "/music/calm.mp3", duration: 30 },
-      { id: "playful", name: "Playful & Upbeat", url: "/music/playful.mp3", duration: 30 },
-      { id: "traditional", name: "Traditional Melody", url: "/music/traditional.mp3", duration: 30 },
+      { id: "traditional", name: "Điệp Khúc Mùa Xuân", url: "/music/traditional.mp3", duration: 30 },
     ],
   },
   {
@@ -23,7 +21,6 @@ const MUSIC_CATEGORIES: MusicCategory[] = [
     options: [
       { id: "xuan-da-ve", name: "Xuân Đã Về", url: "/music/xuan-da-ve.mp3", duration: 30 },
       { id: "mua-xuan-oi", name: "Mùa Xuân Ơi", url: "/music/mua-xuan-oi.mp3", duration: 30 },
-      { id: "ly-ngua-o", name: "Lý Ngựa Ô", url: "/music/ly-ngua-o.mp3", duration: 30 },
     ],
   },
 ]
@@ -36,7 +33,9 @@ interface MusicSelectorProps {
 export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
   const { t } = useTranslation()
   const [playing, setPlaying] = useState<string | null>(null)
+  const [musicFilesAvailable, setMusicFilesAvailable] = useState<boolean | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const toneRef = useRef<{ stop: () => void } | null>(null)
 
   // Translated display names for music options
   const musicNameMap: Record<string, string> = {
@@ -54,35 +53,84 @@ export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
     vietnamese: t.music.categoryVietnamese,
   }
 
+  // Check if music files exist on mount
+  useEffect(() => {
+    checkMusicFileExists("/music/festive.mp3").then((exists) => {
+      setMusicFilesAvailable(exists)
+    })
+  }, [])
+
   useEffect(() => {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause()
         audioRef.current = null
       }
+      if (toneRef.current) {
+        toneRef.current.stop()
+        toneRef.current = null
+      }
     }
   }, [])
 
-  const handlePlay = (musicUrl: string) => {
+  const stopAllPlayback = () => {
     if (audioRef.current) {
       audioRef.current.pause()
+      audioRef.current = null
     }
-    if (playing === musicUrl) {
+    if (toneRef.current) {
+      toneRef.current.stop()
+      toneRef.current = null
+    }
+  }
+
+  const handlePlay = (musicId: string, musicUrl: string) => {
+    stopAllPlayback()
+
+    if (playing === musicId) {
       setPlaying(null)
       return
     }
+
+    // If files are not available, use test tones directly
+    if (musicFilesAvailable === false) {
+      toneRef.current = playTestTone(musicId)
+      setPlaying(musicId)
+      // Auto-stop after sequence completes (~2s)
+      setTimeout(() => {
+        setPlaying((prev) => (prev === musicId ? null : prev))
+      }, 2000)
+      return
+    }
+
+    // Try to play the actual file
     const audio = new Audio(musicUrl)
-    audio.play().catch(() => {})
+    audio.onerror = () => {
+      // Fallback to test tones on error
+      setMusicFilesAvailable(false)
+      toneRef.current = playTestTone(musicId)
+      setPlaying(musicId)
+      setTimeout(() => {
+        setPlaying((prev) => (prev === musicId ? null : prev))
+      }, 2000)
+    }
+    audio.play().catch(() => {
+      // Fallback to test tones
+      setMusicFilesAvailable(false)
+      toneRef.current = playTestTone(musicId)
+      setPlaying(musicId)
+      setTimeout(() => {
+        setPlaying((prev) => (prev === musicId ? null : prev))
+      }, 2000)
+    })
     audio.onended = () => setPlaying(null)
     audioRef.current = audio
-    setPlaying(musicUrl)
+    setPlaying(musicId)
   }
 
   const handleSelect = (musicUrl?: string) => {
-    if (audioRef.current) {
-      audioRef.current.pause()
-      setPlaying(null)
-    }
+    stopAllPlayback()
+    setPlaying(null)
     onSelect(musicUrl)
   }
 
@@ -91,6 +139,25 @@ export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
         {t.music.label}
       </label>
+
+      {/* Missing files warning banner */}
+      {musicFilesAvailable === false && (
+        <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700">
+          <div className="flex items-start gap-2">
+            <svg className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                {t.music.missingFilesBanner}
+              </p>
+              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                {t.music.missingFilesHint}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-2">
         {/* No Music Option */}
@@ -131,11 +198,11 @@ export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
                 music={music}
                 displayName={musicNameMap[music.id] || music.name}
                 isSelected={music.url === selectedMusic}
-                isPlaying={playing === music.url}
-                previewLabel={t.music.previewDuration}
+                isPlaying={playing === music.id}
+                previewLabel={musicFilesAvailable === false ? t.music.testToneLabel : t.music.previewDuration}
                 selectedLabel={t.common.selected}
                 selectLabel={t.common.select}
-                onPlay={() => handlePlay(music.url)}
+                onPlay={() => handlePlay(music.id, music.url)}
                 onSelect={() => handleSelect(music.url)}
               />
             ))}
