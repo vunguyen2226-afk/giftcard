@@ -37,9 +37,9 @@ export default async function DashboardPage() {
 
   // Calculate stats
   const totalCards = cards.length
-  const totalRecipients = cards.reduce((sum, card) => sum + card.recipients.length, 0)
+  const totalRecipients = cards.reduce((sum: number, card: typeof cards[number]) => sum + card.recipients.length, 0)
   const totalViews = cards.reduce(
-    (sum, card) => sum + card.recipients.reduce((s, r) => s + r.viewCount, 0),
+    (sum: number, card: typeof cards[number]) => sum + card.recipients.reduce((s: number, r: typeof card.recipients[number]) => s + r.viewCount, 0),
     0
   )
 
