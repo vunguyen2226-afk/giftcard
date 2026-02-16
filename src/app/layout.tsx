@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Gift Card Team" }],
   creator: "Gift Card",
   publisher: "Gift Card",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://giftcard.yourdomain.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://giftcard.example.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
