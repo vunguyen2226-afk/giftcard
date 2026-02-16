@@ -25,7 +25,7 @@ export default async function DashboardPage() {
   })
 
   // Serialize dates
-  const serializedCards = cards.map((card) => ({
+  const serializedCards = cards.map((card: typeof cards[number]) => ({
     id: card.id,
     templateId: card.templateId,
     senderName: card.senderName,
