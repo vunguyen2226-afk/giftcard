@@ -3,26 +3,11 @@ import { MusicOption } from "@/types"
 import { useTranslation } from "@/lib/i18n"
 import { playTestTone, checkMusicFileExists } from "@/lib/audio-fallback"
 
-interface MusicCategory {
-  key: "general" | "vietnamese"
-  options: MusicOption[]
-}
-
-// Music options organized by category
-const MUSIC_CATEGORIES: MusicCategory[] = [
-  {
-    key: "general",
-    options: [
-      { id: "traditional", name: "Điệp Khúc Mùa Xuân", url: "/music/traditional.mp3", duration: 30 },
-    ],
-  },
-  {
-    key: "vietnamese",
-    options: [
-      { id: "xuan-da-ve", name: "Xuân Đã Về", url: "/music/xuan-da-ve.mp3", duration: 30 },
-      { id: "mua-xuan-oi", name: "Mùa Xuân Ơi", url: "/music/mua-xuan-oi.mp3", duration: 30 },
-    ],
-  },
+// Music options
+const MUSIC_OPTIONS: MusicOption[] = [
+  { id: "traditional", name: "Điệp Khúc Mùa Xuân", url: "/music/traditional.mp3", duration: 30 },
+  { id: "xuan-da-ve", name: "Xuân Đã Về", url: "/music/xuan-da-ve.mp3", duration: 30 },
+  { id: "mua-xuan-oi", name: "Mùa Xuân Ơi", url: "/music/mua-xuan-oi.mp3", duration: 30 },
 ]
 
 interface MusicSelectorProps {
@@ -37,25 +22,9 @@ export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const toneRef = useRef<{ stop: () => void } | null>(null)
 
-  // Translated display names for music options
-  const musicNameMap: Record<string, string> = {
-    festive: t.music.festive,
-    calm: t.music.calm,
-    playful: t.music.playful,
-    traditional: t.music.traditionalMelody,
-    "xuan-da-ve": t.music.xuanDaVe,
-    "mua-xuan-oi": t.music.muaXuanOi,
-    "ly-ngua-o": t.music.lyNguaO,
-  }
-
-  const categoryNameMap: Record<string, string> = {
-    general: t.music.categoryGeneral,
-    vietnamese: t.music.categoryVietnamese,
-  }
-
   // Check if music files exist on mount
   useEffect(() => {
-    checkMusicFileExists("/music/festive.mp3").then((exists) => {
+    checkMusicFileExists("/music/traditional.mp3").then((exists) => {
       setMusicFilesAvailable(exists)
     })
   }, [])
@@ -186,27 +155,20 @@ export function MusicSelector({ selectedMusic, onSelect }: MusicSelectorProps) {
           </div>
         </button>
 
-        {/* Categorized Music Options */}
-        {MUSIC_CATEGORIES.map((category) => (
-          <div key={category.key} className="space-y-2">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 pt-2">
-              {categoryNameMap[category.key]}
-            </h4>
-            {category.options.map((music) => (
-              <MusicOptionItem
-                key={music.id}
-                music={music}
-                displayName={musicNameMap[music.id] || music.name}
-                isSelected={music.url === selectedMusic}
-                isPlaying={playing === music.id}
-                previewLabel={musicFilesAvailable === false ? t.music.testToneLabel : t.music.previewDuration}
-                selectedLabel={t.common.selected}
-                selectLabel={t.common.select}
-                onPlay={() => handlePlay(music.id, music.url)}
-                onSelect={() => handleSelect(music.url)}
-              />
-            ))}
-          </div>
+        {/* Music Options */}
+        {MUSIC_OPTIONS.map((music) => (
+          <MusicOptionItem
+            key={music.id}
+            music={music}
+            displayName={music.name}
+            isSelected={music.url === selectedMusic}
+            isPlaying={playing === music.id}
+            previewLabel={musicFilesAvailable === false ? t.music.testToneLabel : t.music.previewDuration}
+            selectedLabel={t.common.selected}
+            selectLabel={t.common.select}
+            onPlay={() => handlePlay(music.id, music.url)}
+            onSelect={() => handleSelect(music.url)}
+          />
         ))}
       </div>
 
