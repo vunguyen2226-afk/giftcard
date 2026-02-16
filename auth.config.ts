@@ -3,6 +3,7 @@ import type { NextAuthConfig } from "next-auth"
 
 // Auth config without Prisma adapter — safe for Edge Middleware
 export const authConfig: NextAuthConfig = {
+  trustHost: true,
   providers: [Google],
   session: { strategy: "jwt" },
   pages: { signIn: "/login" },
