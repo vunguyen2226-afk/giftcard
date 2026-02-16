@@ -24,9 +24,8 @@ export function CardPreview({ editorState }: CardPreviewProps) {
     setSubmitting(true)
 
     try {
-      const recipients = editorState.recipientNames.map((name, index) => ({
+      const recipients = editorState.recipientNames.map((name) => ({
         name,
-        email: editorState.recipientEmails[index] || undefined,
       }))
 
       const response = await fetch("/api/cards", {

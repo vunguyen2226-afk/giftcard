@@ -58,7 +58,6 @@ export interface CardData {
 export interface RecipientData {
   id: string
   name: string
-  email?: string
   personalSlug: string
   viewCount: number
   firstViewedAt?: string
@@ -76,7 +75,6 @@ export interface EditorState {
   templateId: string
   senderName: string
   recipientNames: string[]
-  recipientEmails: string[]
   message: string
   fontFamily: FontFamily
   primaryColor: string

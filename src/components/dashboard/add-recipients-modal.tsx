@@ -15,13 +15,12 @@ interface AddRecipientsModalProps {
 interface RecipientInput {
   id: string
   name: string
-  email: string
 }
 
 export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRecipientsModalProps) {
   const { t } = useTranslation()
   const [recipients, setRecipients] = useState<RecipientInput[]>([
-    { id: "1", name: "", email: "" },
+    { id: "1", name: "" },
   ])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -29,7 +28,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
   const addRecipient = () => {
     setRecipients([
       ...recipients,
-      { id: Date.now().toString(), name: "", email: "" },
+      { id: Date.now().toString(), name: "" },
     ])
   }
 
@@ -39,9 +38,9 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
     }
   }
 
-  const updateRecipient = (id: string, field: "name" | "email", value: string) => {
+  const updateRecipient = (id: string, value: string) => {
     setRecipients(
-      recipients.map((r) => (r.id === id ? { ...r, [field]: value } : r))
+      recipients.map((r) => (r.id === id ? { ...r, name: value } : r))
     )
   }
 
@@ -55,15 +54,6 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
       return
     }
 
-    // Validate emails
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    for (const r of validRecipients) {
-      if (r.email && !emailRegex.test(r.email)) {
-        setError(`${t.addRecipientsDialog.errorInvalidEmail} ${r.email}`)
-        return
-      }
-    }
-
     if (!cardId) return
 
     setSubmitting(true)
@@ -74,7 +64,6 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
         body: JSON.stringify({
           recipients: validRecipients.map((r) => ({
             name: r.name.trim(),
-            email: r.email.trim() || undefined,
           })),
         }),
       })
@@ -87,7 +76,7 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
       onSuccess()
       onClose()
       // Reset form
-      setRecipients([{ id: "1", name: "", email: "" }])
+      setRecipients([{ id: "1", name: "" }])
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add recipients")
     } finally {
@@ -130,19 +119,12 @@ export function AddRecipientsModal({ cardId, isOpen, onClose, onSuccess }: AddRe
                 key={recipient.id}
                 className="flex gap-3 items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
               >
-                <div className="flex-1 space-y-3">
+                <div className="flex-1">
                   <input
                     type="text"
                     placeholder={t.addRecipientsDialog.namePlaceholder}
                     value={recipient.name}
-                    onChange={(e) => updateRecipient(recipient.id, "name", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-rose-600 focus:border-transparent"
-                  />
-                  <input
-                    type="email"
-                    placeholder={t.addRecipientsDialog.emailPlaceholder}
-                    value={recipient.email}
-                    onChange={(e) => updateRecipient(recipient.id, "email", e.target.value)}
+                    onChange={(e) => updateRecipient(recipient.id, e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-rose-600 focus:border-transparent"
                   />
                 </div>

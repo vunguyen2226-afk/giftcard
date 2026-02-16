@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "motion/react"
-import { MoreVertical, Eye, Edit, Share2, Trash2, Mail, Users } from "lucide-react"
+import { MoreVertical, Eye, Share2, Trash2, Users } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
 import { useTranslation } from "@/lib/i18n"
 
@@ -24,7 +24,6 @@ interface CardListItemProps {
   onDelete: (id: string) => void
   onViewStats: (id: string) => void
   onShare: (id: string, url: string) => void
-  onSendEmail: (id: string) => void
 }
 
 export function CardListItem({
@@ -32,7 +31,6 @@ export function CardListItem({
   onDelete,
   onViewStats,
   onShare,
-  onSendEmail,
 }: CardListItemProps) {
   const { t } = useTranslation()
   const [showMenu, setShowMenu] = useState(false)
@@ -108,16 +106,6 @@ export function CardListItem({
                 >
                   <Share2 className="w-4 h-4" />
                   {t.dashboardMenu.share}
-                </button>
-                <button
-                  onClick={() => {
-                    onSendEmail(card.id)
-                    setShowMenu(false)
-                  }}
-                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  <Mail className="w-4 h-4" />
-                  {t.dashboardMenu.sendEmails}
                 </button>
                 <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
                 <button

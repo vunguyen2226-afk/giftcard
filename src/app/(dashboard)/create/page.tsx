@@ -29,9 +29,9 @@ type EditorAction =
   | { type: "SET_IMAGE"; imageUrl: string | undefined }
   | { type: "SET_MUSIC"; musicUrl: string | undefined }
   | { type: "SET_BACKGROUND_PRESET"; backgroundPresetId: string | undefined }
-  | { type: "ADD_RECIPIENT"; name: string; email?: string }
+  | { type: "ADD_RECIPIENT"; name: string }
   | { type: "REMOVE_RECIPIENT"; index: number }
-  | { type: "BULK_ADD_RECIPIENTS"; recipients: { name: string; email?: string }[] }
+  | { type: "BULK_ADD_RECIPIENTS"; recipients: { name: string }[] }
 
 // Reducer
 function editorReducer(state: EditorState, action: EditorAction): EditorState {
@@ -66,13 +66,11 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
       return {
         ...state,
         recipientNames: [...state.recipientNames, action.name],
-        recipientEmails: [...state.recipientEmails, action.email || ""],
       }
     case "REMOVE_RECIPIENT":
       return {
         ...state,
         recipientNames: state.recipientNames.filter((_, i) => i !== action.index),
-        recipientEmails: state.recipientEmails.filter((_, i) => i !== action.index),
       }
     case "BULK_ADD_RECIPIENTS":
       return {
@@ -80,10 +78,6 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
         recipientNames: [
           ...state.recipientNames,
           ...action.recipients.map((r) => r.name),
-        ],
-        recipientEmails: [
-          ...state.recipientEmails,
-          ...action.recipients.map((r) => r.email || ""),
         ],
       }
     default:
@@ -103,7 +97,6 @@ export default function CreateCardPage() {
     templateId: "traditional",
     senderName: session?.user?.name || "",
     recipientNames: [],
-    recipientEmails: [],
     message: "",
     fontFamily: "serif",
     primaryColor: "#dc2626",
@@ -231,12 +224,11 @@ export default function CreateCardPage() {
             {/* Step 3: Recipients */}
             {state.step === 3 && (
               <RecipientManager
-                recipients={state.recipientNames.map((name, i) => ({
+                recipients={state.recipientNames.map((name) => ({
                   name,
-                  email: state.recipientEmails[i] || undefined,
                 }))}
                 onAdd={(recipient) =>
-                  dispatch({ type: "ADD_RECIPIENT", name: recipient.name, email: recipient.email })
+                  dispatch({ type: "ADD_RECIPIENT", name: recipient.name })
                 }
                 onRemove={(index) => dispatch({ type: "REMOVE_RECIPIENT", index })}
                 onBulkAdd={(recipients) => dispatch({ type: "BULK_ADD_RECIPIENTS", recipients })}
@@ -397,12 +389,11 @@ export default function CreateCardPage() {
 
             {state.step === 3 && (
               <RecipientManager
-                recipients={state.recipientNames.map((name, i) => ({
+                recipients={state.recipientNames.map((name) => ({
                   name,
-                  email: state.recipientEmails[i] || undefined,
                 }))}
                 onAdd={(recipient) =>
-                  dispatch({ type: "ADD_RECIPIENT", name: recipient.name, email: recipient.email })
+                  dispatch({ type: "ADD_RECIPIENT", name: recipient.name })
                 }
                 onRemove={(index) => dispatch({ type: "REMOVE_RECIPIENT", index })}
                 onBulkAdd={(recipients) => dispatch({ type: "BULK_ADD_RECIPIENTS", recipients })}

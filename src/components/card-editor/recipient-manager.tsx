@@ -3,7 +3,6 @@ import { useTranslation } from "@/lib/i18n"
 
 interface Recipient {
   name: string
-  email?: string
 }
 
 interface RecipientManagerProps {
@@ -16,16 +15,14 @@ interface RecipientManagerProps {
 export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: RecipientManagerProps) {
   const { t } = useTranslation()
   const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
   const [bulkMode, setBulkMode] = useState(false)
   const [bulkText, setBulkText] = useState("")
 
   const handleAdd = () => {
     if (!name.trim()) return
 
-    onAdd({ name: name.trim(), email: email.trim() || undefined })
+    onAdd({ name: name.trim() })
     setName("")
-    setEmail("")
   }
 
   const handleBulkAdd = () => {
@@ -34,7 +31,6 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
       const parts = line.split(",").map((p) => p.trim())
       return {
         name: parts[0],
-        email: parts[1] || undefined,
       }
     })
 
@@ -81,28 +77,16 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
       {/* Single Add Mode */}
       {!bulkMode && (
         <div className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder={t.recipients.namePlaceholder}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
-                       bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-                       focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-            />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder={t.recipients.emailPlaceholder}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
-                       bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-                       focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-            />
-          </div>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+            placeholder={t.recipients.namePlaceholder}
+            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
+                     bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+                     focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+          />
           <button
             onClick={handleAdd}
             disabled={!name.trim()}
@@ -161,12 +145,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
                 className="flex items-center justify-between p-3 bg-white dark:bg-gray-900
                          rounded-lg border border-gray-200 dark:border-gray-700"
               >
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">{recipient.name}</p>
-                  {recipient.email && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{recipient.email}</p>
-                  )}
-                </div>
+                <p className="font-medium text-gray-900 dark:text-white">{recipient.name}</p>
                 <button
                   onClick={() => onRemove(index)}
                   className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"

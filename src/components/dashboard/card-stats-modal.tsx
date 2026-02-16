@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { X, Copy, Check, Eye, Mail, Plus } from "lucide-react"
+import { X, Copy, Check, Eye, Plus } from "lucide-react"
 import { formatDistanceToNow } from "date-fns"
 import { useTranslation } from "@/lib/i18n"
 
@@ -62,12 +62,6 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
     } catch (error) {
       console.error("Failed to copy:", error)
     }
-  }
-
-  const maskEmail = (email: string | null) => {
-    if (!email) return "—"
-    const [local, domain] = email.split("@")
-    return `${local.slice(0, 3)}***@${domain}`
   }
 
   if (!isOpen) return null
@@ -151,12 +145,6 @@ export function CardStatsModal({ cardId, isOpen, onClose, onAddRecipients }: Car
                           <div className="font-medium text-gray-900 dark:text-white truncate">
                             {recipient.name}
                           </div>
-                          {recipient.email && (
-                            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
-                              <Mail className="w-3 h-3" />
-                              {maskEmail(recipient.email)}
-                            </div>
-                          )}
                         </div>
 
                         {/* View Stats */}

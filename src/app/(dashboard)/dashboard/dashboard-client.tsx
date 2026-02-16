@@ -7,7 +7,6 @@ import { CardListItem } from "@/components/dashboard/card-list-item"
 import { CardStatsModal } from "@/components/dashboard/card-stats-modal"
 import { DeleteCardDialog } from "@/components/dashboard/delete-card-dialog"
 import { ShareModal } from "@/components/dashboard/share-modal"
-import { SendEmailModal } from "@/components/dashboard/send-email-modal"
 import { AddRecipientsModal } from "@/components/dashboard/add-recipients-modal"
 
 interface Card {
@@ -39,7 +38,6 @@ export function DashboardClient({ cards: initialCards, userName, stats }: Dashbo
   const [statsModalCardId, setStatsModalCardId] = useState<string | null>(null)
   const [deleteDialogCard, setDeleteDialogCard] = useState<{ id: string; name: string } | null>(null)
   const [shareModalData, setShareModalData] = useState<{ url: string; title: string } | null>(null)
-  const [emailModalData, setEmailModalData] = useState<{ cardId: string; count: number } | null>(null)
   const [addRecipientsCardId, setAddRecipientsCardId] = useState<string | null>(null)
 
   const handleDelete = async (cardId: string) => {
@@ -64,16 +62,6 @@ export function DashboardClient({ cards: initialCards, userName, stats }: Dashbo
       url,
       title: `${card?.senderName}'s New Year Card`,
     })
-  }
-
-  const handleSendEmail = (cardId: string) => {
-    const card = cards.find((c) => c.id === cardId)
-    if (card) {
-      setEmailModalData({
-        cardId,
-        count: card.recipients.length,
-      })
-    }
   }
 
   const handleAddRecipients = (cardId: string) => {
@@ -194,7 +182,6 @@ export function DashboardClient({ cards: initialCards, userName, stats }: Dashbo
               onDelete={(id) => setDeleteDialogCard({ id, name: card.senderName })}
               onViewStats={handleViewStats}
               onShare={handleShare}
-              onSendEmail={handleSendEmail}
             />
           ))}
         </div>
@@ -221,13 +208,6 @@ export function DashboardClient({ cards: initialCards, userName, stats }: Dashbo
         cardTitle={shareModalData?.title || ""}
         isOpen={!!shareModalData}
         onClose={() => setShareModalData(null)}
-      />
-
-      <SendEmailModal
-        cardId={emailModalData?.cardId || null}
-        recipientCount={emailModalData?.count || 0}
-        isOpen={!!emailModalData}
-        onClose={() => setEmailModalData(null)}
       />
 
       <AddRecipientsModal
