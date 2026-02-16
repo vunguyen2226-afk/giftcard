@@ -74,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Kalam&display=swap"

@@ -35,22 +35,6 @@ export function ModernTemplate({
         fontFamily: fontMap[fontFamily],
       }}
     >
-      {/* Background image with overlay if provided */}
-      {imageUrl && (
-        <div className="absolute inset-0">
-          <img
-            src={imageUrl}
-            alt="Background"
-            className="w-full h-full object-cover"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${primaryColor}dd 0%, ${primaryColor}bb 100%)`,
-            }}
-          />
-        </div>
-      )}
 
       {/* Geometric decorative elements */}
       <div className="absolute top-10 right-10 w-32 h-32 rounded-full border-4 border-white/20 opacity-60" />
@@ -78,6 +62,15 @@ export function ModernTemplate({
           <div className="flex items-center justify-center mb-8">
             <div className="w-16 h-1 bg-white/30 rounded-full" />
           </div>
+
+          {/* Image */}
+          {imageUrl && (
+            <div className="flex justify-center mb-8">
+              <div className="w-44 h-44 rounded-2xl overflow-hidden border-2 border-white/30 shadow-lg">
+                <img src={imageUrl} alt="Card image" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          )}
 
           {/* Message in center */}
           <div className="mb-8">

@@ -7,8 +7,17 @@ interface TemplateSelectorProps {
   onSelect: (templateId: string, defaultColor: string, defaultFont: string, defaultImage?: string) => void
 }
 
+const TEMPLATE_KEYS: Record<string, { name: string; desc: string }> = {
+  traditional: { name: "traditional", desc: "traditionalDesc" },
+  modern: { name: "modern", desc: "modernDesc" },
+  animated: { name: "animated", desc: "animatedDesc" },
+  minimal: { name: "minimal", desc: "minimalDesc" },
+  elegant: { name: "elegant", desc: "elegantDesc" },
+}
+
 export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelectorProps) {
   const { t } = useTranslation()
+  const tpl = t.templates as Record<string, string>
 
   return (
     <div className="space-y-6">
@@ -22,6 +31,9 @@ export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelec
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {TEMPLATES.map((template) => {
           const isSelected = template.id === selectedTemplateId
+          const keys = TEMPLATE_KEYS[template.id]
+          const name = keys ? tpl[keys.name] : template.name
+          const desc = keys ? tpl[keys.desc] : template.description
 
           return (
             <button
@@ -41,7 +53,7 @@ export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelec
               <div className="aspect-[4/3] bg-gray-100 dark:bg-gray-800 relative">
                 <Image
                   src={template.thumbnail}
-                  alt={template.name}
+                  alt={name}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -62,12 +74,12 @@ export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelec
               {/* Info */}
               <div className="p-4 bg-white dark:bg-gray-900 text-left">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">{template.name}</h3>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{name}</h3>
                   <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 capitalize">
-                    {template.category}
+                    {name}
                   </span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{template.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
               </div>
             </button>
           )

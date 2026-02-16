@@ -9,7 +9,7 @@ import React from "react"
 export type Locale = "en" | "vi"
 
 const STORAGE_KEY = "giftcard-locale"
-const DEFAULT_LOCALE: Locale = "en"
+const DEFAULT_LOCALE: Locale = "vi"
 
 const translations: Record<Locale, TranslationKeys> = { en, vi }
 
@@ -23,7 +23,7 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue>({
   locale: DEFAULT_LOCALE,
   setLocale: () => {},
-  t: en,
+  t: vi,
 })
 
 // Provider
