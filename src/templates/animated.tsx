@@ -1,6 +1,7 @@
 "use client"
 
 import { CardTemplateProps } from "@/types"
+import { getBackgroundPresetById } from "@/lib/background-presets"
 
 export function AnimatedTemplate({
   senderName,
@@ -9,33 +10,40 @@ export function AnimatedTemplate({
   fontFamily,
   primaryColor,
   imageUrl,
+  backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
-    cursive: "cursive",
+    cursive: "'Dancing Script', 'Brush Script MT', cursive",
     monospace: "ui-monospace, monospace",
-    handwriting: "cursive",
+    handwriting: "'Kalam', 'Comic Sans MS', cursive",
   }
+
+  const bgPreset = backgroundPresetId ? getBackgroundPresetById(backgroundPresetId) : undefined
 
   return (
     <div
       className={`relative overflow-hidden rounded-2xl min-h-[500px] ${className}`}
       style={{
-        background: `linear-gradient(45deg, ${primaryColor}22 0%, ${primaryColor}44 50%, ${primaryColor}22 100%)`,
+        background: bgPreset
+          ? bgPreset.css
+          : `linear-gradient(45deg, ${primaryColor}22 0%, ${primaryColor}44 50%, ${primaryColor}22 100%)`,
         fontFamily: fontMap[fontFamily],
       }}
     >
       {/* Animated gradient background */}
-      <div
-        className="absolute inset-0 opacity-80"
-        style={{
-          background: `linear-gradient(135deg, ${primaryColor} 0%, ${primaryColor}cc 25%, ${primaryColor}88 50%, ${primaryColor}cc 75%, ${primaryColor} 100%)`,
-          backgroundSize: "400% 400%",
-          animation: "gradient-shift 15s ease infinite",
-        }}
-      />
+      {!bgPreset && (
+        <div
+          className="absolute inset-0 opacity-80"
+          style={{
+            background: `linear-gradient(135deg, ${primaryColor} 0%, ${primaryColor}cc 25%, ${primaryColor}88 50%, ${primaryColor}cc 75%, ${primaryColor} 100%)`,
+            backgroundSize: "400% 400%",
+            animation: "gradient-shift 15s ease infinite",
+          }}
+        />
+      )}
 
       {/* Floating animated particles */}
       <div className="absolute inset-0 overflow-hidden">

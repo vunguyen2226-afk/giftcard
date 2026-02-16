@@ -37,34 +37,21 @@ export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderPro
     setProgress(10)
 
     try {
-      // Get presigned URL from API
+      const formData = new FormData()
+      formData.append("file", file)
+      setProgress(30)
+
       const response = await fetch("/api/upload", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contentType: file.type,
-          fileName: file.name,
-        }),
+        body: formData,
       })
 
       if (!response.ok) {
-        throw new Error("Failed to get upload URL")
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || "Upload failed")
       }
 
-      const { uploadUrl, publicUrl } = await response.json()
-      setProgress(30)
-
-      // Upload to S3
-      const uploadResponse = await fetch(uploadUrl, {
-        method: "PUT",
-        body: file,
-        headers: { "Content-Type": file.type },
-      })
-
-      if (!uploadResponse.ok) {
-        throw new Error("Failed to upload file")
-      }
-
+      const { publicUrl } = await response.json()
       setProgress(100)
       onUpload(publicUrl)
     } catch (err) {

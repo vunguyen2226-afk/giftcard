@@ -1,9 +1,12 @@
 import { auth } from "../../../../auth"
 import { NextResponse } from "next/server"
-import { generatePresignedUploadUrl, getPublicUrl } from "@/lib/s3"
 import { nanoid } from "nanoid"
-import { validateFileUpload, validateFileExtension } from "@/lib/validation"
 import { rateLimit, createUploadKey } from "@/lib/rate-limit"
+import { writeFile, mkdir } from "fs/promises"
+import { join } from "path"
+
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"]
+const MAX_SIZE = 5 * 1024 * 1024 // 5MB
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +17,7 @@ export async function POST(request: Request) {
 
     // Rate limiting: 20 uploads per hour per user
     const uploadKey = createUploadKey(session.user.id)
-    const rateLimitResult = rateLimit(uploadKey, 20, 60 * 60 * 1000) // 1 hour
+    const rateLimitResult = rateLimit(uploadKey, 20, 60 * 60 * 1000)
 
     if (!rateLimitResult.allowed) {
       return NextResponse.json(
@@ -26,40 +29,42 @@ export async function POST(request: Request) {
       )
     }
 
-    const { contentType, fileName, fileSize } = await request.json()
+    const formData = await request.formData()
+    const file = formData.get("file") as File | null
 
-    if (!contentType || !fileName) {
+    if (!file) {
+      return NextResponse.json({ error: "No file provided" }, { status: 400 })
+    }
+
+    if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { error: "Missing contentType or fileName" },
+        { error: "Invalid file type. Allowed: JPG, PNG, WEBP, GIF." },
         { status: 400 }
       )
     }
 
-    // Validate file upload
-    const validation = validateFileUpload(contentType, fileSize)
-    if (!validation.valid) {
+    if (file.size > MAX_SIZE) {
       return NextResponse.json(
-        { error: "Validation failed", errors: validation.errors },
+        { error: "File too large. Maximum size is 5MB." },
         { status: 400 }
       )
     }
 
-    // Validate file extension matches content type
-    if (!validateFileExtension(fileName, contentType)) {
-      return NextResponse.json(
-        { error: "File extension does not match content type" },
-        { status: 400 }
-      )
-    }
+    const ext = file.name.toLowerCase().split(".").pop() || "jpg"
+    const fileName = `${nanoid(10)}.${ext}`
 
-    const ext = fileName.toLowerCase().split(".").pop()
-    const key = `cards/${session.user.id}/${nanoid(10)}.${ext}`
-    const uploadUrl = await generatePresignedUploadUrl(key, contentType)
-    const publicUrl = getPublicUrl(key)
+    // Save to public/uploads/
+    const uploadDir = join(process.cwd(), "public", "uploads")
+    await mkdir(uploadDir, { recursive: true })
 
-    return NextResponse.json({ uploadUrl, publicUrl, key })
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+    await writeFile(join(uploadDir, fileName), buffer)
+
+    const publicUrl = `/uploads/${fileName}`
+    return NextResponse.json({ publicUrl })
   } catch (error) {
-    console.error("Error generating upload URL:", error)
+    console.error("Error uploading file:", error)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

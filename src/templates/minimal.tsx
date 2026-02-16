@@ -1,6 +1,7 @@
 "use client"
 
 import { CardTemplateProps } from "@/types"
+import { getBackgroundPresetById } from "@/lib/background-presets"
 
 export function MinimalTemplate({
   senderName,
@@ -9,20 +10,26 @@ export function MinimalTemplate({
   fontFamily,
   primaryColor,
   imageUrl,
+  backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
-    cursive: "cursive",
+    cursive: "'Dancing Script', 'Brush Script MT', cursive",
     monospace: "ui-monospace, monospace",
-    handwriting: "cursive",
+    handwriting: "'Kalam', 'Comic Sans MS', cursive",
   }
+
+  const bgPreset = backgroundPresetId ? getBackgroundPresetById(backgroundPresetId) : undefined
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-neutral-50 ${className}`}
-      style={{ fontFamily: fontMap[fontFamily] }}
+      className={`relative overflow-hidden rounded-2xl ${!bgPreset ? "bg-neutral-50" : ""} ${className}`}
+      style={{
+        fontFamily: fontMap[fontFamily],
+        ...(bgPreset ? { background: bgPreset.css } : {}),
+      }}
     >
       {/* Main content with maximum whitespace */}
       <div className="flex flex-col items-center justify-center min-h-[500px] p-16">

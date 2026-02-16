@@ -1,26 +1,33 @@
 "use client"
 
 import { CardTemplateProps } from "@/types"
+import { getBackgroundPresetById } from "@/lib/background-presets"
 import {
   MaiFlower, Lantern, DragonMotif, BanhChung,
   CherryBlossomBranch, MaiPetals,
+  Firecracker, KumquatTree, LuckyEnvelope, SpringScroll, Watermelon,
 } from "./vietnamese-lunar-decorations"
 
 const FONT_MAP: Record<string, string> = {
   "sans-serif": "ui-sans-serif, system-ui, sans-serif",
   serif: "ui-serif, Georgia, serif",
-  cursive: "cursive",
+  cursive: "'Dancing Script', 'Brush Script MT', cursive",
   monospace: "ui-monospace, monospace",
-  handwriting: "cursive",
+  handwriting: "'Kalam', 'Comic Sans MS', cursive",
 }
 
 export function TraditionalTemplate({
-  senderName, recipientName, message, fontFamily, primaryColor, imageUrl, className = "",
+  senderName, recipientName, message, fontFamily, primaryColor, imageUrl, backgroundPresetId, className = "",
 }: CardTemplateProps) {
+  const bgPreset = backgroundPresetId ? getBackgroundPresetById(backgroundPresetId) : undefined
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 via-red-700 to-red-900 p-8 ${className}`}
-      style={{ fontFamily: FONT_MAP[fontFamily] }}
+      style={{
+        fontFamily: FONT_MAP[fontFamily],
+        ...(bgPreset ? { background: bgPreset.css } : {}),
+      }}
     >
       {/* Scattered mai petals background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -73,6 +80,35 @@ export function TraditionalTemplate({
       </div>
       <div className="absolute bottom-8 right-8 opacity-30 pointer-events-none">
         <BanhChung size={35} />
+      </div>
+
+      {/* Firecrackers near lanterns */}
+      <div className="absolute top-0 left-[8%] opacity-30 pointer-events-none">
+        <Firecracker size={45} />
+      </div>
+      <div className="absolute top-0 right-[8%] opacity-30 pointer-events-none">
+        <Firecracker size={45} />
+      </div>
+
+      {/* Lucky envelope at bottom center */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-25 pointer-events-none">
+        <LuckyEnvelope size={40} />
+      </div>
+
+      {/* Spring scrolls on sides */}
+      <div className="absolute top-[30%] left-1 opacity-20 pointer-events-none">
+        <SpringScroll size={70} />
+      </div>
+      <div className="absolute top-[30%] right-1 opacity-20 pointer-events-none">
+        <SpringScroll size={70} />
+      </div>
+
+      {/* Kumquat tree and watermelon - subtle bottom decorations */}
+      <div className="absolute bottom-12 left-[20%] opacity-20 pointer-events-none">
+        <KumquatTree size={50} />
+      </div>
+      <div className="absolute bottom-6 right-[20%] opacity-20 pointer-events-none">
+        <Watermelon size={40} />
       </div>
 
       {/* Decorative border pattern */}

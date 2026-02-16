@@ -1,6 +1,7 @@
 "use client"
 
 import { CardTemplateProps } from "@/types"
+import { getBackgroundPresetById } from "@/lib/background-presets"
 
 export function ElegantTemplate({
   senderName,
@@ -9,21 +10,26 @@ export function ElegantTemplate({
   fontFamily,
   primaryColor,
   imageUrl,
+  backgroundPresetId,
   className = "",
 }: CardTemplateProps) {
   const fontMap: Record<string, string> = {
     "sans-serif": "ui-sans-serif, system-ui, sans-serif",
     serif: "ui-serif, Georgia, serif",
-    cursive: "cursive",
+    cursive: "'Dancing Script', 'Brush Script MT', cursive",
     monospace: "ui-monospace, monospace",
-    handwriting: "cursive",
+    handwriting: "'Kalam', 'Comic Sans MS', cursive",
   }
+
+  const bgPreset = backgroundPresetId ? getBackgroundPresetById(backgroundPresetId) : undefined
 
   return (
     <div
       className={`relative overflow-hidden rounded-2xl ${className}`}
       style={{
-        background: `linear-gradient(135deg, ${primaryColor}22 0%, ${primaryColor}11 100%)`,
+        background: bgPreset
+          ? bgPreset.css
+          : `linear-gradient(135deg, ${primaryColor}22 0%, ${primaryColor}11 100%)`,
         fontFamily: fontMap[fontFamily],
       }}
     >
