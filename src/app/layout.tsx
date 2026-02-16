@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: "Create and share stunning greeting cards with animations and personalized messages",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Gift Card - Create Beautiful Greeting Cards",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Gift Card - Create Beautiful Greeting Cards",
     description: "Create and share stunning greeting cards with animations and personalized messages",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
