@@ -4,11 +4,12 @@ import { Pool } from "pg"
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
-const connectionString = process.env.DATABASE_URL!
+// Strip sslmode from URL to prevent it from overriding our ssl config
+const connectionString = process.env.DATABASE_URL!.replace(/[?&]sslmode=[^&]*/g, "")
 
 const pool = new Pool({
   connectionString,
-  ssl: { rejectUnauthorized: false },
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
 })
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
