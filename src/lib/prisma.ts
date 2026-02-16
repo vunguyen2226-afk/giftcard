@@ -4,10 +4,15 @@ import { Pool } from "pg"
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
-const connectionString = process.env.DATABASE_URL
+const connectionString = process.env.DATABASE_URL!
+
+const pool = new Pool({
+  connectionString,
+  ssl: { rejectUnauthorized: false },
+})
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  adapter: connectionString ? new PrismaPg(new Pool({ connectionString })) : undefined,
+  adapter: new PrismaPg(pool),
   log: process.env.NODE_ENV === "development" ? ["query"] : [],
 })
 
