@@ -38,7 +38,7 @@ export const TEMPLATES: TemplateMetadata[] = [
     id: "minimal",
     name: "Minimal",
     description: "Clean whitespace and typography-focused",
-    thumbnail: "/templates/minimal-preview.png",
+    thumbnail: "/templates/minimal-preview.jpg",
     defaultColor: "#171717",
     defaultFont: "sans-serif",
     category: "minimal",
