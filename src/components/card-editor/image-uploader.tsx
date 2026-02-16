@@ -1,5 +1,6 @@
 import { useState, useRef } from "react"
 import Image from "next/image"
+import { useTranslation } from "@/lib/i18n"
 
 interface ImageUploaderProps {
   imageUrl?: string
@@ -8,6 +9,7 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderProps) {
+  const { t } = useTranslation()
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState("")
@@ -103,7 +105,7 @@ export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderPro
     return (
       <div className="space-y-3">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Custom Image
+          {t.image.label}
         </label>
         <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700">
           <Image src={imageUrl} alt="Uploaded" fill className="object-cover" />
@@ -123,7 +125,7 @@ export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderPro
   return (
     <div className="space-y-3">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Custom Image (Optional)
+        {t.image.label}
       </label>
 
       <div
@@ -149,7 +151,7 @@ export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderPro
         {uploading ? (
           <div className="space-y-3">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-rose-200 border-t-rose-600 mx-auto" />
-            <p className="text-sm text-gray-600 dark:text-gray-400">Uploading... {progress}%</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t.image.uploading} {progress}%</p>
           </div>
         ) : (
           <>
@@ -167,10 +169,10 @@ export function ImageUploader({ imageUrl, onUpload, onRemove }: ImageUploaderPro
               />
             </svg>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Drag and drop or <span className="text-rose-600 font-medium">click to upload</span>
+              {t.image.dragDrop} <span className="text-rose-600 font-medium">{t.image.upload}</span>
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              JPG, PNG, WEBP, GIF up to 5MB
+              {t.image.maxSize}
             </p>
           </>
         )}

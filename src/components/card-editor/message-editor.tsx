@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { GREETING_SUGGESTIONS, getGreetingsByLanguage } from "@/lib/greeting-suggestions"
+import { useTranslation } from "@/lib/i18n"
 
 interface MessageEditorProps {
   senderName: string
@@ -14,6 +15,7 @@ export function MessageEditor({
   onSenderNameChange,
   onMessageChange,
 }: MessageEditorProps) {
+  const { t } = useTranslation()
   const [language, setLanguage] = useState<"en" | "vi">("en")
   const [showSuggestions, setShowSuggestions] = useState(false)
 
@@ -26,13 +28,13 @@ export function MessageEditor({
       {/* Sender Name */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Your Name (Sender)
+          {t.message.senderLabel}
         </label>
         <input
           type="text"
           value={senderName}
           onChange={(e) => onSenderNameChange(e.target.value)}
-          placeholder="Enter your name"
+          placeholder={t.message.senderPlaceholder}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
                    bg-white dark:bg-gray-800 text-gray-900 dark:text-white
                    focus:ring-2 focus:ring-rose-500 focus:border-transparent"
@@ -43,7 +45,7 @@ export function MessageEditor({
       <div>
         <div className="flex items-center justify-between mb-2">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Your Message
+            {t.message.messageLabel}
           </label>
           <span
             className={`text-sm ${charCount > maxChars ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}
@@ -54,7 +56,7 @@ export function MessageEditor({
         <textarea
           value={message}
           onChange={(e) => onMessageChange(e.target.value)}
-          placeholder="Write your greeting message here..."
+          placeholder={t.message.messagePlaceholder}
           rows={6}
           className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg
                    bg-white dark:bg-gray-800 text-gray-900 dark:text-white
@@ -79,7 +81,7 @@ export function MessageEditor({
                 d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
               />
             </svg>
-            {showSuggestions ? "Hide" : "Show"} Suggestions
+            {showSuggestions ? "Hide" : "Show"} {t.message.suggestions}
           </button>
 
           {showSuggestions && (

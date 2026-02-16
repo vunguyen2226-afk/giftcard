@@ -56,7 +56,70 @@ New Year Greeting Card App is a full-featured web application using Next.js 16 a
   (Prisma ORM)     (Presigned URLs)    (SMTP Integration)
 ```
 
-## Implementation Status (All 7 Phases Complete)
+## Internationalization Architecture
+
+### i18n System Design
+```
+┌──────────────────────────────────────────────────────┐
+│         LanguageProvider (Context)                    │
+├──────────────────────────────────────────────────────┤
+│  - Current locale (EN/VI)                            │
+│  - setLocale function                                │
+│  - localStorage persistence                          │
+│  - Default: English (EN)                             │
+└──────────────────────────────────────────────────────┘
+                    ↕
+┌──────────────────────────────────────────────────────┐
+│         useTranslation Hook                          │
+├──────────────────────────────────────────────────────┤
+│  - Returns: { t: TranslationFunction, locale }       │
+│  - Usage: const { t } = useTranslation()            │
+│  - Access: t('section.key') returns translated text  │
+└──────────────────────────────────────────────────────┘
+                    ↕
+┌──────────────────────────────────────────────────────┐
+│    Translation Files (Type-Checked)                  │
+├──────────────────────────────────────────────────────┤
+│  src/lib/i18n/en.ts  (English - 247 keys)           │
+│  src/lib/i18n/vi.ts  (Vietnamese - 100% parity)    │
+│  - Organized in 20 semantic sections                │
+│  - Full TypeScript interface parity                 │
+│  - Automatic type inference in components           │
+└──────────────────────────────────────────────────────┘
+```
+
+### Translation Structure
+```typescript
+// 20 Sections with semantic grouping:
+- common (basics)
+- home (landing page)
+- auth (login/auth)
+- dashboard (user area)
+- editor (card creation)
+- customization (styling)
+- cards (card display)
+- sharing (social features)
+- errors (error messages)
+- validation (form validation)
+- buttons (CTA labels)
+- labels (field names)
+- placeholders (input hints)
+- messages (notifications)
+- templates (design names)
+- effects (animation names)
+- decorations (festive elements)
+- lunar (Vietnamese Lunar New Year)
+- music (audio labels)
+- metadata (SEO/meta tags)
+```
+
+### Language Switcher Component
+- Location: `src/components/shared/language-switcher.tsx`
+- Features: EN/VI toggle with flag emoji (🇬🇧/🇻🇳)
+- Updates locale context and localStorage
+- Instant re-render on language change
+
+## Implementation Status (All 8 Phases Complete)
 
 ### Phase 1: Foundation (Complete)
 **Database & Infrastructure**
@@ -129,6 +192,27 @@ New Year Greeting Card App is a full-featured web application using Next.js 16 a
 - SEO metadata
 - robots.txt and sitemap
 - Dark mode support
+
+### Phase 8: Internationalization & Vietnamese Features (Complete)
+**Multi-language Support & Culturally-Relevant Design**
+- Lightweight Context-based i18n (zero external dependencies)
+- English & Vietnamese translations (247 keys, type-checked)
+- Language switcher component with flag emoji
+- Vietnamese Lunar New Year SVG decorations (6 components):
+  - MaiFlower (apricot blossoms)
+  - Lantern (red lanterns)
+  - DragonMotif (dragon imagery)
+  - BanhChung (traditional cake)
+  - CherryBlossomBranch (cherry blooms)
+  - MaiPetals (falling petals)
+- Traditional template redesign with layered Vietnamese decorations
+- Vietnamese music presets (3 new songs):
+  - Xuân Đã Về (Spring Has Come)
+  - Mùa Xuân Ơi (Oh Spring)
+  - Lý Ngựa Ô (traditional folk song)
+- Music selector reorganized into categorized groups
+- Providers moved to root layout for global coverage
+- Server/client component split for landing & login pages
 
 ## Production Architecture (Implemented)
 

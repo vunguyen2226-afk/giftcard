@@ -4,9 +4,12 @@ import Link from "next/link"
 import Image from "next/image"
 import { signOut, useSession } from "next-auth/react"
 import { useState } from "react"
+import { useTranslation } from "@/lib/i18n"
+import { LanguageSwitcher } from "./language-switcher"
 
 export function Navbar() {
   const { data: session } = useSession()
+  const { t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -32,7 +35,7 @@ export function Navbar() {
                 </svg>
               </div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">
-                Gift Card
+                {t.common.appName}
               </span>
             </Link>
           </div>
@@ -45,13 +48,13 @@ export function Navbar() {
                   href="/dashboard"
                   className="text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 font-medium transition-colors"
                 >
-                  Dashboard
+                  {t.nav.dashboard}
                 </Link>
                 <Link
                   href="/create"
                   className="text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 font-medium transition-colors"
                 >
-                  Create Card
+                  {t.nav.createCard}
                 </Link>
 
                 {/* User Profile */}
@@ -75,7 +78,7 @@ export function Navbar() {
                     className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300
                              hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
-                    Sign Out
+                    {t.common.signOut}
                   </button>
                 </div>
               </>
@@ -85,9 +88,10 @@ export function Navbar() {
                 className="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white
                          hover:bg-rose-700 transition-colors"
               >
-                Sign In
+                {t.common.signIn}
               </Link>
             )}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -131,7 +135,7 @@ export function Navbar() {
                            hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Dashboard
+                  {t.nav.dashboard}
                 </Link>
                 <Link
                   href="/create"
@@ -139,7 +143,7 @@ export function Navbar() {
                            hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Create Card
+                  {t.nav.createCard}
                 </Link>
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                   <div className="flex items-center gap-2 px-4 py-2">
@@ -161,7 +165,7 @@ export function Navbar() {
                     className="w-full text-left px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300
                              hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    Sign Out
+                    {t.common.signOut}
                   </button>
                 </div>
               </>
@@ -171,9 +175,12 @@ export function Navbar() {
                 className="block px-4 py-2 rounded-lg bg-rose-600 text-white text-center font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Sign In
+                {t.common.signIn}
               </Link>
             )}
+            <div className="px-4 pt-2">
+              <LanguageSwitcher />
+            </div>
           </div>
         )}
       </div>

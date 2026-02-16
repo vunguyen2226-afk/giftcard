@@ -31,6 +31,12 @@ Next.js 16.1.6 | React 19 | TypeScript 5 | Tailwind CSS v4 | Motion (Framer Moti
 | 6 | Dashboard & Management | completed | [phase-06](./phase-06-dashboard-and-management.md) |
 | 7 | Polish & Testing | completed | [phase-07](./phase-07-polish-and-testing.md) |
 
+## Post-Launch Enhancements
+
+| Feature | Status | Report |
+|---------|--------|--------|
+| Internationalization (i18n) & Vietnamese Features | completed | [i18n-report](./reports/fullstack-developer-260216-1407-i18n-vietnamese-features-implementation.md) |
+
 ## Dependencies
 
 - Phase 2 depends on Phase 1 (auth config, Prisma)
@@ -51,6 +57,8 @@ Next.js 16.1.6 | React 19 | TypeScript 5 | Tailwind CSS v4 | Motion (Framer Moti
 - Envelope: auto-play after 2s delay, click to skip
 - Music: muted by default, click to play
 - Editor state: useReducer for multi-step wizard
+- **i18n**: React Context pattern (no external library) for bilingual EN/VI support
+- **Vietnamese features**: 6 cultural SVG decorations + 3 traditional Tet songs
 
 ## Research Reports
 

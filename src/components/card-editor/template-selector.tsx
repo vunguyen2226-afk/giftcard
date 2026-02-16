@@ -1,5 +1,6 @@
 import { TEMPLATES } from "@/templates"
 import Image from "next/image"
+import { useTranslation } from "@/lib/i18n"
 
 interface TemplateSelectorProps {
   selectedTemplateId: string
@@ -7,10 +8,12 @@ interface TemplateSelectorProps {
 }
 
 export function TemplateSelector({ selectedTemplateId, onSelect }: TemplateSelectorProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Choose a Template</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.templates.title}</h2>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
           Select a design that best fits your greeting style
         </p>

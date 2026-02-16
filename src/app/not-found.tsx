@@ -1,5 +1,11 @@
+"use client"
+
+import { useTranslation } from "@/lib/i18n"
+
 // Custom 404 page
 export default function NotFound() {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-amber-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center space-y-6">
@@ -22,10 +28,10 @@ export default function NotFound() {
         {/* Message */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Page not found
+            {t.notFound.title}
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            The page you're looking for doesn't exist or has been moved.
+            {t.notFound.description}
           </p>
         </div>
 
@@ -35,13 +41,13 @@ export default function NotFound() {
             href="/"
             className="px-6 py-3 bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white font-medium rounded-lg transition-colors"
           >
-            Go home
+            {t.notFound.goHome}
           </a>
           <a
             href="/dashboard"
             className="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
           >
-            View my cards
+            {t.nav.dashboard}
           </a>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "@/lib/i18n"
 
 interface Recipient {
   name: string
@@ -13,6 +14,7 @@ interface RecipientManagerProps {
 }
 
 export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: RecipientManagerProps) {
+  const { t } = useTranslation()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [bulkMode, setBulkMode] = useState(false)
@@ -46,9 +48,9 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Add Recipients</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.recipients.title}</h2>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Who will receive this greeting card? (minimum 1 recipient)
+          {t.recipients.subtitle}
         </p>
       </div>
 
@@ -85,7 +87,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder="Recipient name (required)"
+              placeholder={t.recipients.namePlaceholder}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
                        bg-white dark:bg-gray-800 text-gray-900 dark:text-white
                        focus:ring-2 focus:ring-rose-500 focus:border-transparent"
@@ -95,7 +97,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              placeholder="Email (optional)"
+              placeholder={t.recipients.emailPlaceholder}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
                        bg-white dark:bg-gray-800 text-gray-900 dark:text-white
                        focus:ring-2 focus:ring-rose-500 focus:border-transparent"
@@ -108,7 +110,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
                      hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed
                      transition-colors font-medium"
           >
-            Add Recipient
+            {t.recipients.addButton}
           </button>
         </div>
       )}
@@ -133,7 +135,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
                      hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed
                      transition-colors font-medium"
           >
-            Add All Recipients
+            {t.recipients.addButton}
           </button>
         </div>
       )}
@@ -143,11 +145,11 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Recipients ({recipients.length})
+              {recipients.length} {t.recipients.recipientCount}
             </h3>
             {recipients.length > 50 && (
               <span className="text-sm text-red-600 dark:text-red-400">
-                Maximum 50 recipients allowed
+                {t.recipients.maxRecipients}
               </span>
             )}
           </div>
@@ -195,7 +197,7 @@ export function RecipientManager({ recipients, onAdd, onRemove, onBulkAdd }: Rec
               d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          <p>No recipients added yet</p>
+          <p>{t.recipients.noRecipients}</p>
         </div>
       )}
     </div>

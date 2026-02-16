@@ -1,5 +1,6 @@
 import { FONT_DEFINITIONS } from "@/lib/font-definitions"
 import { FontFamily } from "@/types"
+import { useTranslation } from "@/lib/i18n"
 
 interface FontPickerProps {
   selectedFont: FontFamily
@@ -7,10 +8,12 @@ interface FontPickerProps {
 }
 
 export function FontPicker({ selectedFont, onSelect }: FontPickerProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="space-y-3">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Font Style
+        {t.fonts.label}
       </label>
 
       <div className="grid grid-cols-1 gap-3">

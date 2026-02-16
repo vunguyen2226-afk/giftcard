@@ -14,6 +14,7 @@ import { MusicSelector } from "@/components/card-editor/music-selector"
 import { RecipientManager } from "@/components/card-editor/recipient-manager"
 import { CardPreview } from "@/components/card-editor/card-preview"
 import { getTemplateComponent } from "@/templates"
+import { useTranslation } from "@/lib/i18n"
 
 // Action types
 type EditorAction =
@@ -85,11 +86,12 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
   }
 }
 
-const STEPS = ["Template", "Customize", "Recipients", "Preview & Send"]
-
 export default function CreateCardPage() {
+  const { t } = useTranslation()
   const { data: session } = useSession()
   const [showPreview, setShowPreview] = useState(false)
+
+  const STEPS = [t.editor.steps.template, t.editor.steps.customize, t.editor.steps.recipients, t.editor.steps.previewSend]
 
   const initialState: EditorState = {
     step: 1,
@@ -175,9 +177,9 @@ export default function CreateCardPage() {
             {state.step === 2 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Customize Your Card</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.editor.customizeTitle}</h2>
                   <p className="text-gray-600 dark:text-gray-400 mt-1">
-                    Personalize your message and design
+                    {t.editor.customizeSubtitle}
                   </p>
                 </div>
 
@@ -243,7 +245,7 @@ export default function CreateCardPage() {
                          rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800
                          disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Back
+                {t.common.back}
               </button>
 
               {state.step < 4 && (
@@ -254,7 +256,7 @@ export default function CreateCardPage() {
                            hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed
                            transition-colors"
                 >
-                  Next
+                  {t.common.next}
                 </button>
               )}
             </div>
@@ -264,22 +266,22 @@ export default function CreateCardPage() {
         {/* Right: Live Preview */}
         <div className="sticky top-0 h-full overflow-y-auto pl-4 border-l border-gray-200 dark:border-gray-700">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Live Preview</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t.editor.livePreview}</h3>
             <div className="rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden bg-white dark:bg-gray-900">
               <div className="aspect-[4/3] flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-800">
                 {state.templateId ? (
                   <div className="w-full transform scale-75">
                     <TemplateComponent
-                      senderName={state.senderName || "Your Name"}
-                      recipientName={state.recipientNames[0] || "Recipient"}
-                      message={state.message || "Your message will appear here..."}
+                      senderName={state.senderName || t.editor.yourName}
+                      recipientName={state.recipientNames[0] || t.editor.recipient}
+                      message={state.message || t.editor.messagePlaceholder}
                       fontFamily={state.fontFamily}
                       primaryColor={state.primaryColor}
                       imageUrl={state.imageUrl}
                     />
                   </div>
                 ) : (
-                  <p className="text-gray-500 dark:text-gray-400">Select a template to preview</p>
+                  <p className="text-gray-500 dark:text-gray-400">{t.editor.selectTemplate}</p>
                 )}
               </div>
             </div>
@@ -301,7 +303,7 @@ export default function CreateCardPage() {
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
-            Edit
+            {t.common.edit}
           </button>
           <button
             onClick={() => setShowPreview(true)}
@@ -311,7 +313,7 @@ export default function CreateCardPage() {
                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
-            Preview
+            {t.common.preview}
           </button>
         </div>
 
@@ -322,16 +324,16 @@ export default function CreateCardPage() {
               {state.templateId ? (
                 <div className="w-full transform scale-75">
                   <TemplateComponent
-                    senderName={state.senderName || "Your Name"}
-                    recipientName={state.recipientNames[0] || "Recipient"}
-                    message={state.message || "Your message will appear here..."}
+                    senderName={state.senderName || t.editor.yourName}
+                    recipientName={state.recipientNames[0] || t.editor.recipient}
+                    message={state.message || t.editor.messagePlaceholder}
                     fontFamily={state.fontFamily}
                     primaryColor={state.primaryColor}
                     imageUrl={state.imageUrl}
                   />
                 </div>
               ) : (
-                <p className="text-gray-500 dark:text-gray-400">Select a template to preview</p>
+                <p className="text-gray-500 dark:text-gray-400">{t.editor.selectTemplate}</p>
               )}
             </div>
           </div>
@@ -406,7 +408,7 @@ export default function CreateCardPage() {
                        rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800
                        disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              Back
+              {t.common.back}
             </button>
 
             {state.step < 4 && (
@@ -417,7 +419,7 @@ export default function CreateCardPage() {
                          hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed
                          transition-colors"
               >
-                Next
+                {t.common.next}
               </button>
             )}
           </div>

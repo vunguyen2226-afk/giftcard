@@ -24,11 +24,13 @@ New Year Greeting Card App is a full-featured Next.js 16.1.6 web application for
 src/
 ├── app/
 │   ├── page.tsx                       # Landing page
-│   ├── layout.tsx                     # Root layout
+│   ├── layout.tsx                     # Root layout (with providers)
 │   ├── globals.css                    # Global styles
 │   ├── middleware.ts                  # Auth middleware
 │   ├── (auth)/
-│   │   ├── login/page.tsx            # Login page
+│   │   ├── login/
+│   │   │   ├── page.tsx              # Login page (server)
+│   │   │   └── login-client.tsx      # Login client component
 │   │   └── layout.tsx                # Auth layout
 │   ├── (protected)/
 │   │   ├── dashboard/page.tsx        # User dashboard
@@ -54,7 +56,8 @@ src/
 │   │   │   ├── CardList.tsx
 │   │   │   ├── StatsModal.tsx
 │   │   │   └── DeleteDialog.tsx
-│   │   ├── common/
+│   │   ├── shared/
+│   │   │   ├── language-switcher.tsx # EN/VI toggle with flags
 │   │   │   ├── Navbar.tsx
 │   │   │   ├── Button.tsx
 │   │   │   ├── Modal.tsx
@@ -80,13 +83,22 @@ src/
 │   │   ├── useAuth.ts                # Auth state
 │   │   ├── useCards.ts               # Cards data
 │   │   ├── useCardEditor.ts          # Editor state (useReducer)
-│   │   └── useTemplate.ts            # Template logic
+│   │   ├── useTemplate.ts            # Template logic
+│   │   └── useTranslation.ts         # i18n hook
 │   ├── lib/
+│   │   ├── i18n/
+│   │   │   ├── index.ts              # LanguageProvider, useTranslation
+│   │   │   ├── en.ts                 # English translations (247 keys)
+│   │   │   └── vi.ts                 # Vietnamese translations
 │   │   ├── prisma.ts                 # PrismaClient singleton
 │   │   ├── s3.ts                     # AWS S3 client
 │   │   ├── auth.ts                   # Auth.js config
 │   │   ├── validation.ts             # Input validators
 │   │   └── rate-limit.ts             # Rate limiting
+│   ├── templates/
+│   │   ├── traditional.tsx           # Traditional template (with Vietnamese decorations)
+│   │   ├── vietnamese-lunar-decorations.tsx # Lunar New Year SVG components
+│   │   └── ...                       # Other templates
 │   ├── types/
 │   │   ├── index.ts                  # Main types
 │   │   ├── card.ts                   # Card types
@@ -124,6 +136,13 @@ src/
 - **TypeScript**: 5
 - **Node.js**: 18+
 - **Package Manager**: npm
+
+### Internationalization
+- **i18n System**: Lightweight React Context-based (no external library)
+- **Supported Languages**: English (EN), Vietnamese (VI)
+- **Translation Keys**: 247 keys across 20 sections
+- **Type Safety**: Full TypeScript parity between language files
+- **Persistence**: localStorage for locale preference
 
 ### Production Dependencies
 ```json
@@ -259,6 +278,16 @@ src/
 - [x] Font definitions
 - [x] Greeting suggestions
 - [x] Template registry
+
+### Phase 8: Internationalization & Vietnamese Features (NEW)
+- [x] i18n Context-based system (no external library)
+- [x] English translations (247 keys, 20 sections)
+- [x] Vietnamese translations with full parity
+- [x] Language switcher component with flag emoji
+- [x] Vietnamese Lunar New Year imagery (6 SVG components)
+- [x] Vietnamese music presets in categorized groups
+- [x] Locale persistence via localStorage
+- [x] Type-checked translation keys
 
 ### Phase 4: Card Editor
 - [x] 4-step wizard interface

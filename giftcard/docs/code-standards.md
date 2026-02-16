@@ -250,6 +250,93 @@ export function useCards() {
 // Instead: Fetch in server component, pass cards as props
 ```
 
+## Internationalization (i18n) Standards
+
+### Translation Key Naming Conventions
+
+```typescript
+// Pattern: section.key
+// Sections: common, home, auth, dashboard, editor, etc.
+
+// Good examples:
+t('common.loading')           // Common UI elements
+t('auth.login-button')        // Auth-specific text
+t('editor.title-input')       // Editor section
+t('validation.email-invalid') // Validation messages
+t('errors.network-error')     // Error messages
+t('lunar.mai-flower')         // Vietnamese elements
+
+// Avoid:
+t('button_click_me')          // Unclear section
+t('messageForUser')           // Mixed case, no section
+t('HEADING_1')                // All caps, no context
+```
+
+### Adding New Translations
+
+1. **Update both files simultaneously** (maintain parity):
+   - `src/lib/i18n/en.ts`
+   - `src/lib/i18n/vi.ts`
+
+2. **Type safety check**:
+   ```typescript
+   // In en.ts:
+   export const en = {
+     newSection: {
+       newKey: 'English text'
+     }
+   }
+
+   // In vi.ts - must have identical structure:
+   export const vi = {
+     newSection: {
+       newKey: 'Tiếng Việt'
+     }
+   }
+   ```
+
+3. **Use in components**:
+   ```typescript
+   'use client'
+
+   import { useTranslation } from '@/lib/i18n'
+
+   export function MyComponent() {
+     const { t } = useTranslation()
+
+     return (
+       <div>
+         <h1>{t('newSection.newKey')}</h1>
+       </div>
+     )
+   }
+   ```
+
+### Language Switching
+
+```typescript
+'use client'
+
+import { useLanguageContext } from '@/lib/i18n'
+
+export function LanguageSwitcher() {
+  const { locale, setLocale } = useLanguageContext()
+
+  return (
+    <button onClick={() => setLocale(locale === 'en' ? 'vi' : 'en')}>
+      {locale === 'en' ? '🇬🇧 EN' : '🇻🇳 VI'}
+    </button>
+  )
+}
+```
+
+### Locale Persistence
+
+- Locale preference saved to `localStorage` with key `preferred-locale`
+- Default: `en` (English)
+- Persists across sessions and browser tabs
+- Loaded on app initialization in root layout
+
 ## Styling with Tailwind CSS v4
 
 ### Utility-First Approach

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { COLOR_PRESETS } from "@/lib/color-presets"
+import { useTranslation } from "@/lib/i18n"
 
 interface ColorPickerProps {
   selectedColor: string
@@ -7,6 +8,7 @@ interface ColorPickerProps {
 }
 
 export function ColorPicker({ selectedColor, onSelect }: ColorPickerProps) {
+  const { t } = useTranslation()
   const [customColor, setCustomColor] = useState(selectedColor)
 
   const handleCustomColorChange = (value: string) => {
@@ -19,7 +21,7 @@ export function ColorPicker({ selectedColor, onSelect }: ColorPickerProps) {
   return (
     <div className="space-y-4">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Primary Color
+        {t.colors.label}
       </label>
 
       {/* Preset Colors */}

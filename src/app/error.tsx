@@ -1,5 +1,7 @@
 "use client"
 
+import { useTranslation } from "@/lib/i18n"
+
 // Global error boundary for the entire application
 
 interface ErrorProps {
@@ -8,6 +10,8 @@ interface ErrorProps {
 }
 
 export default function GlobalError({ error, reset }: ErrorProps) {
+  const { t } = useTranslation()
+
   return (
     <html>
       <body>
@@ -33,10 +37,10 @@ export default function GlobalError({ error, reset }: ErrorProps) {
             {/* Error message */}
             <div className="space-y-2">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                Something went wrong
+                {t.error.title}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                {error.message || "An unexpected error occurred. Please try again."}
+                {error.message || t.error.description}
               </p>
               {error.digest && (
                 <p className="text-sm text-gray-500 dark:text-gray-500 font-mono">
@@ -51,13 +55,13 @@ export default function GlobalError({ error, reset }: ErrorProps) {
                 onClick={reset}
                 className="px-6 py-3 bg-rose-600 hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-600 text-white font-medium rounded-lg transition-colors"
               >
-                Try again
+                {t.error.tryAgain}
               </button>
               <a
                 href="/"
                 className="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
               >
-                Go home
+                {t.notFound.goHome}
               </a>
             </div>
           </div>

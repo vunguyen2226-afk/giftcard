@@ -2,12 +2,14 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { getTemplateComponent, getTemplate } from "@/templates"
 import { EditorState } from "@/types"
+import { useTranslation } from "@/lib/i18n"
 
 interface CardPreviewProps {
   editorState: EditorState
 }
 
 export function CardPreview({ editorState }: CardPreviewProps) {
+  const { t } = useTranslation()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
@@ -61,9 +63,9 @@ export function CardPreview({ editorState }: CardPreviewProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Preview & Confirm</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t.cardPreview.title}</h2>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Review your card before sending
+          {t.cardPreview.subtitle}
         </p>
       </div>
 
@@ -153,7 +155,7 @@ export function CardPreview({ editorState }: CardPreviewProps) {
         {submitting ? (
           <>
             <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-            Creating Card...
+            {t.cardPreview.sending}
           </>
         ) : (
           <>
@@ -165,7 +167,7 @@ export function CardPreview({ editorState }: CardPreviewProps) {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Create Card
+            {t.cardPreview.sendButton}
           </>
         )}
       </button>

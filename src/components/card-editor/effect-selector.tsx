@@ -1,4 +1,5 @@
 import { EffectType } from "@/types"
+import { useTranslation } from "@/lib/i18n"
 
 interface EffectOption {
   id: EffectType
@@ -40,10 +41,19 @@ interface EffectSelectorProps {
 }
 
 export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps) {
+  const { t } = useTranslation()
+
+  const effectNameMap: Record<string, string> = {
+    fireworks: t.effects.fireworks,
+    snow: t.effects.snow,
+    cherry_blossom: t.effects.cherryBlossom,
+    confetti: t.effects.confetti,
+  }
+
   return (
     <div className="space-y-3">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Animation Effect
+        {t.effects.label}
       </label>
 
       <div className="grid grid-cols-2 gap-3">
@@ -67,7 +77,7 @@ export function EffectSelector({ selectedEffect, onSelect }: EffectSelectorProps
               <div className="text-4xl mb-2">{effect.emoji}</div>
               <div className="flex items-center justify-center gap-2 mb-1">
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  {effect.name}
+                  {effectNameMap[effect.id] || effect.name}
                 </span>
                 {isSelected && (
                   <svg className="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 20 20">
