@@ -5,6 +5,7 @@ frontend:
       commands:
         - npm ci
         - npx prisma generate
+        - env | grep -E '^(AUTH_|NEXT_|DATABASE_|S3_|RESEND_)' > .env.production
     build:
       commands:
         - npm run build
